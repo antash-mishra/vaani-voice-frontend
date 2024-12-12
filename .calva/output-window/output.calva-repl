@@ -1,0 +1,2477 @@
+; This is the Calva REPL Window.
+; It's just a file, really, with some special treatment from Calva.
+; Use it as a REPL input prompt if you like. (When the REPL is connected.)
+; TIPS: The keyboard shortcut `ctrl+alt+o r` shows and focuses this window
+; Please see https://calva.io/repl-window/ for more info.
+; Happy coding! ♥️
+
+; TIPS: As with any Clojure file when the REPL is connected:
+; - `alt+enter` evaluates the current top level form.
+; - `ctrl+enter` evaluates the current form.
+; Special for this file:
+; - `alt+up` and `alt+down` traverse up and down the REPL command history
+;    when the cursor is after the last contents at the prompt
+; 
+; See also the Calva Inspector: https://calva.io/inspector/
+
+PLEASE NOTE
+We will update the default location of this file.
+The new default location will be
+  "<projectRootPath>/.calva/repl.calva-repl"
+For now the legacy path is used by default.
+To give yourself a smooth transition, you can opt in
+to the change, by configuring this setting as false:
+  "calva.useLegacyReplWindowPath"
+and then add "**/.calva/repl.calva-repl" to your ".gitignore" file.
+
+
+This file is configured as the output destination for all REPL output.
+You can configure this with the setting:
+  "calva.outputDestinations"
+
+
+; Jacking in...
+; Connecting using "shadow-cljs" project type.
+; You can make Calva auto-select this.
+;   - See https://calva.io/connect-sequences/
+; 
+
+; Starting Jack-in: (cd /home/antash/workspace/vaani-voice/client; npx shadow-cljs -d cider/cider-nrepl:0.47.1 watch :vaani)
+; Using host:port localhost:44283 ...
+; Hooking up nREPL sessions ...
+; Connected session: clj
+; Evaluating code from settings: 'calva.autoEvaluateCode.onConnect.clj'
+nil
+clj꞉shadow.user꞉> 
+; Creating cljs repl session...
+; Connecting cljs repl: shadow-cljs...
+; Connected session: cljs, repl: :node-repl
+; TIPS: You can choose which REPL to use (clj or cljs):
+;    *Calva: Toggle REPL connection*
+;    (There is a button in the status bar for this)
+; Evaluating code from settings: 'calva.autoEvaluateCode.onConnect.cljs'
+nil
+"Please see https://calva.io/output/#about-stdout-in-the-repl-window
+about why stdout printed to this file is prepended with `;` to be line comments."
+cljs꞉user꞉> 
+; Jack-in done.
+cljs꞉user꞉> 
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (248 files, 1 compiled, 1 warnings, 0.13s)
+; 
+; ------ WARNING #1 - :undeclared-var --------------------------------------------
+;  File: /home/antash/workspace/vaani-voice/client/src/main/com/vaani/app.cljs:152:4
+; --------------------------------------------------------------------------------
+;  149 | ;; ["conference" :as video-conference]
+;  150 | 
+;  151 | (defn ^:export run []
+;  152 |   (rdom/createRoot [video-conference serverUrl access-token] (js/document.getElementById "root")))
+; ----------^---------------------------------------------------------------------
+;  Use of undeclared Var reagent.dom/createRoot
+; --------------------------------------------------------------------------------
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (248 files, 1 compiled, 0 warnings, 0.10s)
+nil
+cljs꞉com.vaani.app꞉> 
+#'com.vaani.app/serverUrl
+cljs꞉com.vaani.app꞉> 
+#'com.vaani.app/access-token
+cljs꞉com.vaani.app꞉> 
+#'com.vaani.app/fetch-and-set-access-token
+cljs꞉com.vaani.app꞉> 
+#'com.vaani.app/get-access-token
+; 
+; Error fetching access token: TypeError: fetch failed
+;     at node:internal/deps/undici/undici:13178:13
+;     at processTicksAndRejections (node:internal/process/task_queues:95:5) {
+;   [cause]: Error: connect ECONNREFUSED 127.0.0.1:8000
+;       at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1607:16) {
+;     errno: -111,
+;     code: 'ECONNREFUSED',
+;     syscall: 'connect',
+;     address: '127.0.0.1',
+;     port: 8000
+;   }
+; }
+cljs꞉com.vaani.app꞉> 
+#'com.vaani.app/get-access-token
+; 
+; Error fetching access token: TypeError: fetch failed
+;     at node:internal/deps/undici/undici:13178:13
+;     at processTicksAndRejections (node:internal/process/task_queues:95:5) {
+;   [cause]: Error: connect ECONNREFUSED 127.0.0.1:8000
+;       at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1607:16) {
+;     errno: -111,
+;     code: 'ECONNREFUSED',
+;     syscall: 'connect',
+;     address: '127.0.0.1',
+;     port: 8000
+;   }
+; }
+cljs꞉com.vaani.app꞉> 
+#'com.vaani.app/get-access-token
+; 
+; Error fetching access token: TypeError: fetch failed
+;     at node:internal/deps/undici/undici:13178:13
+;     at processTicksAndRejections (node:internal/process/task_queues:95:5) {
+;   [cause]: Error: connect ECONNREFUSED 127.0.0.1:8000
+;       at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1607:16) {
+;     errno: -111,
+;     code: 'ECONNREFUSED',
+;     syscall: 'connect',
+;     address: '127.0.0.1',
+;     port: 8000
+;   }
+; }
+cljs꞉com.vaani.app꞉> 
+#'com.vaani.app/get-access-token
+cljs꞉com.vaani.app꞉> @access-token
+"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoibXkgbmFtZSIsInZpZGVvIjp7InJvb21Kb2luIjp0cnVlLCJyb29tIjoibXktcm9vbSIsImNhblB1Ymxpc2giOnRydWUsImNhblN1YnNjcmliZSI6dHJ1ZSwiY2FuUHVibGlzaERhdGEiOnRydWV9LCJzdWIiOiJpZGVudGl0eSIsImlzcyI6IkFQSWNmc2djN21Wb0tFOSIsIm5iZiI6MTczMzkwMzgzMSwiZXhwIjoxNzMzOTI1NDMxfQ.LjspqpkaRQntL6p513nbV5q5vyHxWCwwUDKfBV00QOM"
+cljs꞉com.vaani.app꞉> 
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (248 files, 2 compiled, 0 warnings, 0.11s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (248 files, 1 compiled, 0 warnings, 0.10s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (248 files, 2 compiled, 0 warnings, 0.11s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (248 files, 2 compiled, 0 warnings, 0.12s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (248 files, 2 compiled, 1 warnings, 0.10s)
+; 
+; ------ WARNING #1 - :undeclared-var --------------------------------------------
+;  File: /home/antash/workspace/vaani-voice/client/src/main/com/vaani/conference.cljs:35:15
+; --------------------------------------------------------------------------------
+;   32 |             ;; Audio Visualizer
+;   33 |     [:div {:style {:marginBottom "20px"}}
+;   34 |      [:h4 "Audio Visualizer"]
+;   35 |      (for [p @participants]
+; ---------------------^----------------------------------------------------------
+;  Use of undeclared Var com.vaani.conference/participants
+; --------------------------------------------------------------------------------
+;   36 |        ^{:key (:sid p)}
+;   37 |        [:div {:style {:marginBottom "5px"}}
+;   38 |         [:strong (:identity p)] ": "
+;   39 |         [:> AudioVisualizer {:participant p
+; --------------------------------------------------------------------------------
+; [:vaani] Compiling ...
+; [:vaani] Build failure:
+; ------ ERROR -------------------------------------------------------------------
+;  File: /home/antash/workspace/vaani-voice/client/src/main/com/vaani/conference.cljs:55:1
+; --------------------------------------------------------------------------------
+;   52 | 
+;   53 | (def ^:export video-conference livekit-chat-page)
+;   54 | 
+;   55 | 
+; -------^------------------------------------------------------------------------
+; com/vaani/conference.cljs [line 55, col 1] Unexpected EOF while reading item 5 of list, starting at line 8 and column 1.
+; 
+; --------------------------------------------------------------------------------
+; 
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (248 files, 1 compiled, 0 warnings, 0.07s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (248 files, 2 compiled, 0 warnings, 0.09s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (248 files, 1 compiled, 0 warnings, 0.09s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (247 files, 1 compiled, 0 warnings, 0.09s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (247 files, 1 compiled, 0 warnings, 0.09s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (247 files, 1 compiled, 0 warnings, 0.08s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (247 files, 1 compiled, 0 warnings, 0.10s)
+#'com.vaani.app/livekit-chat-page
+cljs꞉com.vaani.app꞉> 
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (247 files, 1 compiled, 0 warnings, 0.10s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (247 files, 1 compiled, 0 warnings, 0.08s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (247 files, 1 compiled, 0 warnings, 0.09s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (247 files, 1 compiled, 0 warnings, 0.09s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (247 files, 1 compiled, 0 warnings, 0.08s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (247 files, 1 compiled, 0 warnings, 0.08s)
+; #js {$$typeof #object[Symbol(react.forward_ref)], :render #object[Function]}
+nil
+cljs꞉com.vaani.app꞉> 
+; nil
+nil
+cljs꞉com.vaani.app꞉> 
+; #object[oe]
+nil
+cljs꞉com.vaani.app꞉> 
+nil
+cljs꞉com.vaani.app꞉> 
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (247 files, 1 compiled, 0 warnings, 0.10s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (247 files, 1 compiled, 0 warnings, 0.10s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (247 files, 1 compiled, 0 warnings, 0.09s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (247 files, 1 compiled, 0 warnings, 0.09s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (247 files, 1 compiled, 0 warnings, 0.09s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (247 files, 1 compiled, 0 warnings, 0.10s)
+; [:vaani] Compiling ...
+; [:vaani] Build failure:
+; ------ ERROR -------------------------------------------------------------------
+;  File: /home/antash/workspace/vaani-voice/client/src/main/com/vaani/app.cljs:157:54
+; --------------------------------------------------------------------------------
+;  154 |                    :video false
+;  155 |                    :audio true
+;  156 |                    :className "grid grid-rows-[2fr_1fr] items-center"}
+;  157 |    [:button {:style {:background 'var (--lk-danger)'}} "My Button"]
+; ------------------------------------------------------------^-------------------
+; com/vaani/app.cljs [line 157, col 54] Unmatched delimiter }.
+; 
+; --------------------------------------------------------------------------------
+;  158 |    [:div {:style {:display "flex"
+;  159 |                   :flexDirection "column"
+;  160 |                   :width "600px"
+;  161 |                   :margin "auto"
+; --------------------------------------------------------------------------------
+; 
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (247 files, 1 compiled, 0 warnings, 0.10s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (247 files, 1 compiled, 0 warnings, 0.09s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (247 files, 1 compiled, 0 warnings, 0.08s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (247 files, 1 compiled, 1 warnings, 0.08s)
+; 
+; ------ WARNING #1 - :undeclared-var --------------------------------------------
+;  File: /home/antash/workspace/vaani-voice/client/src/main/com/vaani/app.cljs:131:6
+; --------------------------------------------------------------------------------
+;  128 | 
+;  129 | (defn simple-voice-assistant [{:keys [on-state-change]}]
+;  130 |   (let [{:keys [state audioTrack]} (useVoiceAssistant)]
+;  131 |     (r/use-effect
+; ------------^-------------------------------------------------------------------
+;  Use of undeclared Var reagent.core/use-effect
+; --------------------------------------------------------------------------------
+;  132 |      (fn []
+;  133 |        (on-state-change state)
+;  134 |        nil) ;; Return nil for cleanup as no cleanup is needed
+;  135 |      [state]) ;; Effect runs when `state` changes
+; --------------------------------------------------------------------------------
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (247 files, 1 compiled, 0 warnings, 0.09s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (247 files, 1 compiled, 0 warnings, 0.10s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (247 files, 1 compiled, 1 warnings, 0.10s)
+; 
+; ------ WARNING #1 - :undeclared-var --------------------------------------------
+;  File: /home/antash/workspace/vaani-voice/client/src/main/com/vaani/app.cljs:131:6
+; --------------------------------------------------------------------------------
+;  128 | 
+;  129 | (defn simple-voice-assistant [{:keys [on-state-change]}]
+;  130 |   (let [{:keys [state audioTrack]} (useVoiceAssistant)]
+;  131 |     (r/use-effect
+; ------------^-------------------------------------------------------------------
+;  Use of undeclared Var reagent.core/use-effect
+; --------------------------------------------------------------------------------
+;  132 |      (fn []
+;  133 |        (on-state-change state)
+;  134 |        nil) ;; Return nil for cleanup as no cleanup is needed
+;  135 |      [state]) ;; Effect runs when `state` changes
+; --------------------------------------------------------------------------------
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (247 files, 1 compiled, 2 warnings, 0.07s)
+; 
+; ------ WARNING #1 - :undeclared-var --------------------------------------------
+;  File: /home/antash/workspace/vaani-voice/client/src/main/com/vaani/app.cljs:130:37
+; --------------------------------------------------------------------------------
+;  127 |        ]]]])
+;  128 | 
+;  129 | (defn simple-voice-assistant [{:keys [on-state-change]}]
+;  130 |   (let [{:keys [state audioTrack]} (use-voice-assistant)]  ;; Assuming use-voice-assistant is a custom hook
+; -------------------------------------------^------------------------------------
+;  Use of undeclared Var com.vaani.app/use-voice-assistant
+; --------------------------------------------------------------------------------
+;  131 |     ;; Use Reagent's r/useEffect for side-effects
+;  132 |     (r/useEffect
+;  133 |      (fn []
+;  134 |        (on-state-change state)
+; --------------------------------------------------------------------------------
+; 
+; ------ WARNING #2 - :undeclared-var --------------------------------------------
+;  File: /home/antash/workspace/vaani-voice/client/src/main/com/vaani/app.cljs:132:6
+; --------------------------------------------------------------------------------
+;  129 | (defn simple-voice-assistant [{:keys [on-state-change]}]
+;  130 |   (let [{:keys [state audioTrack]} (use-voice-assistant)]  ;; Assuming use-voice-assistant is a custom hook
+;  131 |     ;; Use Reagent's r/useEffect for side-effects
+;  132 |     (r/useEffect
+; ------------^-------------------------------------------------------------------
+;  Use of undeclared Var reagent.core/useEffect
+; --------------------------------------------------------------------------------
+;  133 |      (fn []
+;  134 |        (on-state-change state)
+;  135 |        nil)  ;; Cleanup function returns nil
+;  136 |      [state]) ;; The effect depends on the `state` value
+; --------------------------------------------------------------------------------
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (247 files, 1 compiled, 1 warnings, 0.06s)
+; 
+; ------ WARNING #1 - :undeclared-var --------------------------------------------
+;  File: /home/antash/workspace/vaani-voice/client/src/main/com/vaani/app.cljs:132:6
+; --------------------------------------------------------------------------------
+;  129 | (defn simple-voice-assistant [{:keys [on-state-change]}]
+;  130 |   (let [{:keys [state audioTrack]} (useVoiceAssistant)]  ;; Assuming use-voice-assistant is a custom hook
+;  131 |     ;; Use Reagent's r/useEffect for side-effects
+;  132 |     (r/useEffect
+; ------------^-------------------------------------------------------------------
+;  Use of undeclared Var reagent.core/useEffect
+; --------------------------------------------------------------------------------
+;  133 |      (fn []
+;  134 |        (on-state-change state)
+;  135 |        nil)  ;; Cleanup function returns nil
+;  136 |      [state]) ;; The effect depends on the `state` value
+; --------------------------------------------------------------------------------
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (247 files, 1 compiled, 0 warnings, 0.10s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (247 files, 1 compiled, 0 warnings, 0.10s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (247 files, 1 compiled, 0 warnings, 0.17s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (247 files, 1 compiled, 0 warnings, 0.13s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (247 files, 1 compiled, 0 warnings, 0.08s)
+nil
+; 
+; ------ WARNING - :undeclared-var -----------------------------------------------
+;  Resource: <eval>:7:39
+;  Use of undeclared Var com.vaani.app/useVoiceAssistant
+; --------------------------------------------------------------------------------
+; 
+; 
+; ------ WARNING - :undeclared-var -----------------------------------------------
+;  Resource: <eval>:16:12
+;  Use of undeclared Var com.vaani.app/BarVisualizer
+; --------------------------------------------------------------------------------
+; 
+cljs꞉com.vaani.app꞉> 
+nil
+; 
+; ------ WARNING - :undeclared-var -----------------------------------------------
+;  Resource: <eval>:1:10
+;  Use of undeclared Var com.vaani.app/state
+; --------------------------------------------------------------------------------
+; 
+; 
+; ------ WARNING - :undeclared-var -----------------------------------------------
+;  Resource: <eval>:1:16
+;  Use of undeclared Var com.vaani.app/audioTrack
+; --------------------------------------------------------------------------------
+; 
+; 
+; ------ WARNING - :undeclared-var -----------------------------------------------
+;  Resource: <eval>:1:30
+;  Use of undeclared Var com.vaani.app/useVoiceAssistant
+; --------------------------------------------------------------------------------
+; 
+cljs꞉com.vaani.app꞉> 
+nil
+; 
+; ------ WARNING - :undeclared-var -----------------------------------------------
+;  Resource: <eval>:1:35
+;  Use of undeclared Var com.vaani.app/useVoiceAssistant
+; --------------------------------------------------------------------------------
+; 
+; 
+; ------ WARNING - :undeclared-var -----------------------------------------------
+;  Resource: <eval>:2:15
+;  Use of undeclared Var com.vaani.app/assistant-state
+; --------------------------------------------------------------------------------
+; 
+; 
+; ------ WARNING - :undeclared-var -----------------------------------------------
+;  Resource: <eval>:3:15
+;  Use of undeclared Var com.vaani.app/audio-track-ref
+; --------------------------------------------------------------------------------
+; 
+; 
+; ------ WARNING - :undeclared-var -----------------------------------------------
+;  Resource: <eval>:5:8
+;  Use of undeclared Var com.vaani.app/on-state-change
+; --------------------------------------------------------------------------------
+; 
+cljs꞉com.vaani.app꞉> 
+nil
+; 
+; ------ WARNING - :undeclared-var -----------------------------------------------
+;  Resource: <eval>:3:12
+;  Use of undeclared Var com.vaani.app/BarVisualizer
+; --------------------------------------------------------------------------------
+; 
+; 
+; ------ WARNING - :undeclared-var -----------------------------------------------
+;  Resource: <eval>:4:18
+;  Use of undeclared Var com.vaani.app/assistant-state
+; --------------------------------------------------------------------------------
+; 
+; 
+; ------ WARNING - :undeclared-var -----------------------------------------------
+;  Resource: <eval>:6:21
+;  Use of undeclared Var com.vaani.app/audio-track-ref
+; --------------------------------------------------------------------------------
+; 
+cljs꞉com.vaani.app꞉> 
+nil
+; 
+; ------ WARNING - :undeclared-var -----------------------------------------------
+;  Resource: <eval>:7:39
+;  Use of undeclared Var com.vaani.app/useVoiceAssistant
+; --------------------------------------------------------------------------------
+; 
+; 
+; ------ WARNING - :undeclared-var -----------------------------------------------
+;  Resource: <eval>:16:12
+;  Use of undeclared Var com.vaani.app/BarVisualizer
+; --------------------------------------------------------------------------------
+; 
+cljs꞉com.vaani.app꞉> 
+; [:vaani] Compiling ...
+; [:vaani] Build failure:
+; ------ ERROR -------------------------------------------------------------------
+;  File: /home/antash/workspace/vaani-voice/client/src/main/com/vaani/app.cljs:1:1
+; --------------------------------------------------------------------------------
+; 
+;    1 | (ns com.vaani.app
+; -------^------------------------------------------------------------------------
+; Invalid :refer, var reagent.core/useEffect does not exist
+; --------------------------------------------------------------------------------
+;    2 |   (:require ["@chatscope/chat-ui-kit-react" :refer [MainContainer ChatContainer MessageList Message MessageInput ConversationHeader Avatar]]
+;    3 |             ["@livekit/components-react" :refer [LiveKitRoom ParticipantTileGrid Chat useParticipants AudioVisualizer useVoiceAssistant BarVisualizer]]
+;    4 |             [reagent.core :as r]
+;    5 |             [reagent.dom :as rdom] 
+; --------------------------------------------------------------------------------
+; 
+; [:vaani] Compiling ...
+; [:vaani] Build failure:
+; ------ ERROR -------------------------------------------------------------------
+;  File: /home/antash/workspace/vaani-voice/client/src/main/com/vaani/app.cljs:1:1
+; --------------------------------------------------------------------------------
+; 
+;    1 | (ns com.vaani.app
+; -------^------------------------------------------------------------------------
+; Invalid :refer, var reagent.core/useEffect does not exist
+; --------------------------------------------------------------------------------
+;    2 |   (:require ["@chatscope/chat-ui-kit-react" :refer [MainContainer ChatContainer MessageList Message MessageInput ConversationHeader Avatar]]
+;    3 |             ["@livekit/components-react" :refer [LiveKitRoom ParticipantTileGrid Chat useParticipants AudioVisualizer useVoiceAssistant BarVisualizer]]
+;    4 |             [reagent.core :as r]
+;    5 |             [reagent.dom :as rdom] 
+; --------------------------------------------------------------------------------
+; 
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (247 files, 1 compiled, 1 warnings, 0.10s)
+; 
+; ------ WARNING #1 - :undeclared-var --------------------------------------------
+;  File: /home/antash/workspace/vaani-voice/client/src/main/com/vaani/app.cljs:133:6
+; --------------------------------------------------------------------------------
+;  130 |   ;; Call the hook at the top-level
+;  131 |   (let [{:keys [state audioTrack]} (useVoiceAssistant)]
+;  132 |     ;; Use reagent's use-effect hook to call on-state-change whenever state changes
+;  133 |     (r/use-effect
+; ------------^-------------------------------------------------------------------
+;  Use of undeclared Var reagent.core/use-effect
+; --------------------------------------------------------------------------------
+;  134 |      (fn []
+;  135 |        (on-state-change state)
+;  136 |        js/undefined) ; return js/undefined or nil from the effect function
+;  137 |      [state])
+; --------------------------------------------------------------------------------
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (247 files, 1 compiled, 0 warnings, 0.11s)
+; [:vaani] Compiling ...
+; [:vaani] Build failure:
+; ------ ERROR -------------------------------------------------------------------
+;  File: /home/antash/workspace/vaani-voice/client/src/main/com/vaani/app.cljs:189:20
+; --------------------------------------------------------------------------------
+;  186 |                      :flexDirection "column"}}
+;  187 |        [:h4 "Chat"]
+;  188 |                           ;; Chat component to send/receive messages
+;  189 |        [:> Chat]]]]))
+; --------------------------^-----------------------------------------------------
+; com/vaani/app.cljs [line 189, col 20] Unmatched delimiter ].
+; 
+; --------------------------------------------------------------------------------
+;  190 | 
+;  191 | (defn ^:export run []
+;  192 |   (rdom/render [livekit-chat-page] (js/document.getElementById "root")))
+; --------------------------------------------------------------------------------
+; 
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (247 files, 1 compiled, 0 warnings, 0.09s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (247 files, 1 compiled, 0 warnings, 0.08s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (247 files, 1 compiled, 1 warnings, 0.06s)
+; 
+; ------ WARNING #1 - :undeclared-var --------------------------------------------
+;  File: /home/antash/workspace/vaani-voice/client/src/main/com/vaani/app.cljs:177:11
+; --------------------------------------------------------------------------------
+;  174 |                      :padding "10px"
+;  175 |                      :marginBottom "20px"}}
+;  176 |        [:h4 "Participants (Audio only)"]]
+;  177 |       [:> ControlBar]
+; -----------------^--------------------------------------------------------------
+;  Use of undeclared Var com.vaani.app/ControlBar
+; --------------------------------------------------------------------------------
+;  178 |     
+;  179 |                          ;; Audio Visualizer
+;  180 |       [:div {:style {:marginBottom "20px"}}
+;  181 |        [:h4 "Audio Visualizer"]]
+; --------------------------------------------------------------------------------
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (247 files, 1 compiled, 0 warnings, 0.08s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (247 files, 1 compiled, 0 warnings, 0.08s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (247 files, 1 compiled, 0 warnings, 0.09s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (247 files, 1 compiled, 0 warnings, 0.11s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (247 files, 1 compiled, 0 warnings, 0.09s)
+; [:vaani] Compiling ...
+; [:vaani] Build failure:
+; ------ ERROR -------------------------------------------------------------------
+;  File: /home/antash/workspace/vaani-voice/client/src/main/com/vaani/app.cljs:1:1
+; --------------------------------------------------------------------------------
+; 
+;    1 | (ns com.vaani.app
+; -------^------------------------------------------------------------------------
+; null
+; Invalid namespace declaration
+; -- Syntax error -------------------
+; 
+;   (... ... (:require
+;             ["@chatscope/chat-ui-kit-react"
+;              :refer
+;              [MainContainer
+;               ChatContainer
+;               MessageList
+;               Message
+;               MessageInput
+;               ConversationHeader
+;               Avatar]]
+;             ["@livekit/components-react"
+;              :refer
+;              [LiveKitRoom
+;               ParticipantTileGrid
+;               Chat
+;               useParticipants
+;               AudioVisualizer
+;               useVoiceAssistant
+;               BarVisualizer
+;               ControlBar
+;               RoomAudioRenderer]]
+;             [reagent.core :as r]
+;             [reagent.dom :as rdom]
+;             ["react" :as react]
+;             ["react-dom" :as react-dom]
+;             [com.vaani.conference/video-conference]))
+;            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+; 
+; has extra input
+; 
+; -- Relevant specs -------
+; 
+; :shadow.build.ns-form/ns-form:
+;   (clojure.spec.alpha/cat
+;    :ns
+;    '#{clojure.core/ns}
+;    :name
+;    clojure.core/simple-symbol?
+;    :docstring
+;    (clojure.spec.alpha/? clojure.core/string?)
+;    :meta
+;    (clojure.spec.alpha/? clojure.core/map?)
+;    :clauses
+;    :shadow.build.ns-form/ns-clauses)
+; 
+; -------------------------
+; Detected 1 error
+; 
+; --------------------------------------------------------------------------------
+;    2 |   (:require ["@chatscope/chat-ui-kit-react" :refer [MainContainer ChatContainer MessageList Message MessageInput ConversationHeader Avatar]]
+;    3 |             ["@livekit/components-react" :refer [LiveKitRoom ParticipantTileGrid Chat useParticipants AudioVisualizer useVoiceAssistant BarVisualizer ControlBar RoomAudioRenderer]]
+;    4 |             [reagent.core :as r]
+;    5 |             [reagent.dom :as rdom] 
+; --------------------------------------------------------------------------------
+; 
+; [:vaani] Compiling ...
+; [:vaani] Build failure:
+; ------ ERROR -------------------------------------------------------------------
+;  File: /home/antash/workspace/vaani-voice/client/src/main/com/vaani/app.cljs:1:1
+; --------------------------------------------------------------------------------
+; 
+;    1 | (ns com.vaani.app
+; -------^------------------------------------------------------------------------
+; null
+; Invalid namespace declaration
+; -- Syntax error -------------------
+; 
+;   (... ... (:require
+;             ["@chatscope/chat-ui-kit-react"
+;              :refer
+;              [MainContainer
+;               ChatContainer
+;               MessageList
+;               Message
+;               MessageInput
+;               ConversationHeader
+;               Avatar]]
+;             ["@livekit/components-react"
+;              :refer
+;              [LiveKitRoom
+;               ParticipantTileGrid
+;               Chat
+;               useParticipants
+;               AudioVisualizer
+;               useVoiceAssistant
+;               BarVisualizer
+;               ControlBar
+;               RoomAudioRenderer]]
+;             [reagent.core :as r]
+;             [reagent.dom :as rdom]
+;             ["react" :as react]
+;             ["react-dom" :as react-dom]
+;             [com.vaani.conference/video-conference :as conference]))
+;            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+; 
+; has extra input
+; 
+; -- Relevant specs -------
+; 
+; :shadow.build.ns-form/ns-form:
+;   (clojure.spec.alpha/cat
+;    :ns
+;    '#{clojure.core/ns}
+;    :name
+;    clojure.core/simple-symbol?
+;    :docstring
+;    (clojure.spec.alpha/? clojure.core/string?)
+;    :meta
+;    (clojure.spec.alpha/? clojure.core/map?)
+;    :clauses
+;    :shadow.build.ns-form/ns-clauses)
+; 
+; -------------------------
+; Detected 1 error
+; 
+; --------------------------------------------------------------------------------
+;    2 |   (:require ["@chatscope/chat-ui-kit-react" :refer [MainContainer ChatContainer MessageList Message MessageInput ConversationHeader Avatar]]
+;    3 |             ["@livekit/components-react" :refer [LiveKitRoom ParticipantTileGrid Chat useParticipants AudioVisualizer useVoiceAssistant BarVisualizer ControlBar RoomAudioRenderer]]
+;    4 |             [reagent.core :as r]
+;    5 |             [reagent.dom :as rdom] 
+; --------------------------------------------------------------------------------
+; 
+; [:vaani] Compiling ...
+; [:vaani] Build failure:
+; ------ ERROR -------------------------------------------------------------------
+;  File: /home/antash/workspace/vaani-voice/client/src/main/com/vaani/app.cljs:1:1
+; --------------------------------------------------------------------------------
+; 
+;    1 | (ns com.vaani.app
+; -------^------------------------------------------------------------------------
+; null
+; Invalid namespace declaration
+; -- Syntax error -------------------
+; 
+;   (... ... (:require
+;             ["@chatscope/chat-ui-kit-react"
+;              :refer
+;              [MainContainer
+;               ChatContainer
+;               MessageList
+;               Message
+;               MessageInput
+;               ConversationHeader
+;               Avatar]]
+;             ["@livekit/components-react"
+;              :refer
+;              [LiveKitRoom
+;               ParticipantTileGrid
+;               Chat
+;               useParticipants
+;               AudioVisualizer
+;               useVoiceAssistant
+;               BarVisualizer
+;               ControlBar
+;               RoomAudioRenderer]]
+;             [reagent.core :as r]
+;             [reagent.dom :as rdom]
+;             ["react" :as react]
+;             ["react-dom" :as react-dom]
+;             [com.vaani.conference/video-conference :as [conference]]))
+;            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+; 
+; has extra input
+; 
+; -- Relevant specs -------
+; 
+; :shadow.build.ns-form/ns-form:
+;   (clojure.spec.alpha/cat
+;    :ns
+;    '#{clojure.core/ns}
+;    :name
+;    clojure.core/simple-symbol?
+;    :docstring
+;    (clojure.spec.alpha/? clojure.core/string?)
+;    :meta
+;    (clojure.spec.alpha/? clojure.core/map?)
+;    :clauses
+;    :shadow.build.ns-form/ns-clauses)
+; 
+; -------------------------
+; Detected 1 error
+; 
+; --------------------------------------------------------------------------------
+;    2 |   (:require ["@chatscope/chat-ui-kit-react" :refer [MainContainer ChatContainer MessageList Message MessageInput ConversationHeader Avatar]]
+;    3 |             ["@livekit/components-react" :refer [LiveKitRoom ParticipantTileGrid Chat useParticipants AudioVisualizer useVoiceAssistant BarVisualizer ControlBar RoomAudioRenderer]]
+;    4 |             [reagent.core :as r]
+;    5 |             [reagent.dom :as rdom] 
+; --------------------------------------------------------------------------------
+; 
+; [:vaani] Compiling ...
+; [:vaani] Build failure:
+; ------ ERROR -------------------------------------------------------------------
+;  File: /home/antash/workspace/vaani-voice/client/src/main/com/vaani/app.cljs:1:1
+; --------------------------------------------------------------------------------
+; 
+;    1 | (ns com.vaani.app
+; -------^------------------------------------------------------------------------
+; null
+; Invalid namespace declaration
+; -- Syntax error -------------------
+; 
+;   (... ... (:require
+;             ["@chatscope/chat-ui-kit-react"
+;              :refer
+;              [MainContainer
+;               ChatContainer
+;               MessageList
+;               Message
+;               MessageInput
+;               ConversationHeader
+;               Avatar]]
+;             ["@livekit/components-react"
+;              :refer
+;              [LiveKitRoom
+;               ParticipantTileGrid
+;               Chat
+;               useParticipants
+;               AudioVisualizer
+;               useVoiceAssistant
+;               BarVisualizer
+;               ControlBar
+;               RoomAudioRenderer]]
+;             [reagent.core :as r]
+;             [reagent.dom :as rdom]
+;             ["react" :as react]
+;             ["react-dom" :as react-dom]
+;             [com.vaani.conference/video-conference :refer [conference]]))
+;            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+; 
+; has extra input
+; 
+; -- Relevant specs -------
+; 
+; :shadow.build.ns-form/ns-form:
+;   (clojure.spec.alpha/cat
+;    :ns
+;    '#{clojure.core/ns}
+;    :name
+;    clojure.core/simple-symbol?
+;    :docstring
+;    (clojure.spec.alpha/? clojure.core/string?)
+;    :meta
+;    (clojure.spec.alpha/? clojure.core/map?)
+;    :clauses
+;    :shadow.build.ns-form/ns-clauses)
+; 
+; -------------------------
+; Detected 1 error
+; 
+; --------------------------------------------------------------------------------
+;    2 |   (:require ["@chatscope/chat-ui-kit-react" :refer [MainContainer ChatContainer MessageList Message MessageInput ConversationHeader Avatar]]
+;    3 |             ["@livekit/components-react" :refer [LiveKitRoom ParticipantTileGrid Chat useParticipants AudioVisualizer useVoiceAssistant BarVisualizer ControlBar RoomAudioRenderer]]
+;    4 |             [reagent.core :as r]
+;    5 |             [reagent.dom :as rdom] 
+; --------------------------------------------------------------------------------
+; 
+; [:vaani] Compiling ...
+; [:vaani] Build failure:
+; ------ ERROR -------------------------------------------------------------------
+;  File: /home/antash/workspace/vaani-voice/client/src/main/com/vaani/app.cljs:1:1
+; --------------------------------------------------------------------------------
+; 
+;    1 | (ns com.vaani.app
+; -------^------------------------------------------------------------------------
+; null
+; Invalid namespace declaration
+; -- Syntax error -------------------
+; 
+;   (... ... (:require
+;             ["@chatscope/chat-ui-kit-react"
+;              :refer
+;              [MainContainer
+;               ChatContainer
+;               MessageList
+;               Message
+;               MessageInput
+;               ConversationHeader
+;               Avatar]]
+;             ["@livekit/components-react"
+;              :refer
+;              [LiveKitRoom
+;               ParticipantTileGrid
+;               Chat
+;               useParticipants
+;               AudioVisualizer
+;               useVoiceAssistant
+;               BarVisualizer
+;               ControlBar
+;               RoomAudioRenderer]]
+;             [reagent.core :as r]
+;             [reagent.dom :as rdom]
+;             [com.vaani.conference/video-conference :as conf]
+;             ["react" :as react]
+;             ["react-dom" :as react-dom]))
+;            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+; 
+; has extra input
+; 
+; -- Relevant specs -------
+; 
+; :shadow.build.ns-form/ns-form:
+;   (clojure.spec.alpha/cat
+;    :ns
+;    '#{clojure.core/ns}
+;    :name
+;    clojure.core/simple-symbol?
+;    :docstring
+;    (clojure.spec.alpha/? clojure.core/string?)
+;    :meta
+;    (clojure.spec.alpha/? clojure.core/map?)
+;    :clauses
+;    :shadow.build.ns-form/ns-clauses)
+; 
+; -------------------------
+; Detected 1 error
+; 
+; --------------------------------------------------------------------------------
+;    2 |   (:require ["@chatscope/chat-ui-kit-react" :refer [MainContainer ChatContainer MessageList Message MessageInput ConversationHeader Avatar]]
+;    3 |             ["@livekit/components-react" :refer [LiveKitRoom ParticipantTileGrid Chat useParticipants AudioVisualizer useVoiceAssistant BarVisualizer ControlBar RoomAudioRenderer]]
+;    4 |             [reagent.core :as r]
+;    5 |             [reagent.dom :as rdom]
+; --------------------------------------------------------------------------------
+; 
+; [:vaani] Compiling ...
+; [:vaani] Build failure:
+; ------ ERROR -------------------------------------------------------------------
+;  File: /home/antash/workspace/vaani-voice/client/src/main/com/vaani/app.cljs:1:1
+; --------------------------------------------------------------------------------
+; 
+;    1 | (ns com.vaani.app
+; -------^------------------------------------------------------------------------
+; null
+; Invalid namespace declaration
+; -- Syntax error -------------------
+; 
+;   (... ... (:require
+;             ["@chatscope/chat-ui-kit-react"
+;              :refer
+;              [MainContainer
+;               ChatContainer
+;               MessageList
+;               Message
+;               MessageInput
+;               ConversationHeader
+;               Avatar]]
+;             ["@livekit/components-react"
+;              :refer
+;              [LiveKitRoom
+;               ParticipantTileGrid
+;               Chat
+;               useParticipants
+;               AudioVisualizer
+;               useVoiceAssistant
+;               BarVisualizer
+;               ControlBar
+;               RoomAudioRenderer]]
+;             [reagent.core :as r]
+;             [reagent.dom :as rdom]
+;             [com.vaani.conference/video-conference :as conf]
+;             ["react" :as react]
+;             ["react-dom" :as react-dom]))
+;            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+; 
+; has extra input
+; 
+; -- Relevant specs -------
+; 
+; :shadow.build.ns-form/ns-form:
+;   (clojure.spec.alpha/cat
+;    :ns
+;    '#{clojure.core/ns}
+;    :name
+;    clojure.core/simple-symbol?
+;    :docstring
+;    (clojure.spec.alpha/? clojure.core/string?)
+;    :meta
+;    (clojure.spec.alpha/? clojure.core/map?)
+;    :clauses
+;    :shadow.build.ns-form/ns-clauses)
+; 
+; -------------------------
+; Detected 1 error
+; 
+; --------------------------------------------------------------------------------
+;    2 |   (:require ["@chatscope/chat-ui-kit-react" :refer [MainContainer ChatContainer MessageList Message MessageInput ConversationHeader Avatar]]
+;    3 |             ["@livekit/components-react" :refer [LiveKitRoom ParticipantTileGrid Chat useParticipants AudioVisualizer useVoiceAssistant BarVisualizer ControlBar RoomAudioRenderer]]
+;    4 |             [reagent.core :as r]
+;    5 |             [reagent.dom :as rdom]
+; --------------------------------------------------------------------------------
+; 
+; [:vaani] Compiling ...
+; [:vaani] Build failure:
+; ------ ERROR -------------------------------------------------------------------
+;  File: /home/antash/workspace/vaani-voice/client/src/main/com/vaani/app.cljs:1:1
+; --------------------------------------------------------------------------------
+; 
+;    1 | (ns com.vaani.app
+; -------^------------------------------------------------------------------------
+; null
+; Invalid namespace declaration
+; -- Syntax error -------------------
+; 
+;   (... ... (:require
+;             ["@chatscope/chat-ui-kit-react"
+;              :refer
+;              [MainContainer
+;               ChatContainer
+;               MessageList
+;               Message
+;               MessageInput
+;               ConversationHeader
+;               Avatar]]
+;             ["@livekit/components-react"
+;              :refer
+;              [LiveKitRoom
+;               ParticipantTileGrid
+;               Chat
+;               useParticipants
+;               AudioVisualizer
+;               useVoiceAssistant
+;               BarVisualizer
+;               ControlBar
+;               RoomAudioRenderer]]
+;             [reagent.core :as r]
+;             [reagent.dom :as rdom]
+;             [com.vaani.conference/video-conference :as conf]
+;             ["react" :as react]
+;             ["react-dom" :as react-dom]))
+;            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+; 
+; has extra input
+; 
+; -- Relevant specs -------
+; 
+; :shadow.build.ns-form/ns-form:
+;   (clojure.spec.alpha/cat
+;    :ns
+;    '#{clojure.core/ns}
+;    :name
+;    clojure.core/simple-symbol?
+;    :docstring
+;    (clojure.spec.alpha/? clojure.core/string?)
+;    :meta
+;    (clojure.spec.alpha/? clojure.core/map?)
+;    :clauses
+;    :shadow.build.ns-form/ns-clauses)
+; 
+; -------------------------
+; Detected 1 error
+; 
+; --------------------------------------------------------------------------------
+;    2 |   (:require ["@chatscope/chat-ui-kit-react" :refer [MainContainer ChatContainer MessageList Message MessageInput ConversationHeader Avatar]]
+;    3 |             ["@livekit/components-react" :refer [LiveKitRoom ParticipantTileGrid Chat useParticipants AudioVisualizer useVoiceAssistant BarVisualizer ControlBar RoomAudioRenderer]]
+;    4 |             [reagent.core :as r]
+;    5 |             [reagent.dom :as rdom]
+; --------------------------------------------------------------------------------
+; 
+; [:vaani] Compiling ...
+; [:vaani] Build failure:
+; ------ ERROR -------------------------------------------------------------------
+;  File: /home/antash/workspace/vaani-voice/client/src/main/com/vaani/app.cljs:1:1
+; --------------------------------------------------------------------------------
+; 
+;    1 | (ns com.vaani.app
+; -------^------------------------------------------------------------------------
+; null
+; Invalid namespace declaration
+; -- Syntax error -------------------
+; 
+;   (... ... (:require
+;             ["@chatscope/chat-ui-kit-react"
+;              :refer
+;              [MainContainer
+;               ChatContainer
+;               MessageList
+;               Message
+;               MessageInput
+;               ConversationHeader
+;               Avatar]]
+;             ["@livekit/components-react"
+;              :refer
+;              [LiveKitRoom
+;               ParticipantTileGrid
+;               Chat
+;               useParticipants
+;               AudioVisualizer
+;               useVoiceAssistant
+;               BarVisualizer
+;               ControlBar
+;               RoomAudioRenderer]]
+;             [reagent.core :as r]
+;             [reagent.dom :as rdom]
+;             [com.vaani.conference :refer video-conference]
+;             ["react" :as react]
+;             ["react-dom" :as react-dom]))
+;            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+; 
+; has extra input
+; 
+; -- Relevant specs -------
+; 
+; :shadow.build.ns-form/ns-form:
+;   (clojure.spec.alpha/cat
+;    :ns
+;    '#{clojure.core/ns}
+;    :name
+;    clojure.core/simple-symbol?
+;    :docstring
+;    (clojure.spec.alpha/? clojure.core/string?)
+;    :meta
+;    (clojure.spec.alpha/? clojure.core/map?)
+;    :clauses
+;    :shadow.build.ns-form/ns-clauses)
+; 
+; -------------------------
+; Detected 1 error
+; 
+; --------------------------------------------------------------------------------
+;    2 |   (:require ["@chatscope/chat-ui-kit-react" :refer [MainContainer ChatContainer MessageList Message MessageInput ConversationHeader Avatar]]
+;    3 |             ["@livekit/components-react" :refer [LiveKitRoom ParticipantTileGrid Chat useParticipants AudioVisualizer useVoiceAssistant BarVisualizer ControlBar RoomAudioRenderer]]
+;    4 |             [reagent.core :as r]
+;    5 |             [reagent.dom :as rdom]
+; --------------------------------------------------------------------------------
+; 
+; [:vaani] Compiling ...
+; [:vaani] Build failure:
+; ------ ERROR -------------------------------------------------------------------
+;  File: /home/antash/workspace/vaani-voice/client/src/main/com/vaani/app.cljs:1:1
+; --------------------------------------------------------------------------------
+; 
+;    1 | (ns com.vaani.app
+; -------^------------------------------------------------------------------------
+; null
+; Invalid namespace declaration
+; -- Syntax error -------------------
+; 
+;   (... ... (:require
+;             ["@chatscope/chat-ui-kit-react"
+;              :refer
+;              [MainContainer
+;               ChatContainer
+;               MessageList
+;               Message
+;               MessageInput
+;               ConversationHeader
+;               Avatar]]
+;             ["@livekit/components-react"
+;              :refer
+;              [LiveKitRoom
+;               ParticipantTileGrid
+;               Chat
+;               useParticipants
+;               AudioVisualizer
+;               useVoiceAssistant
+;               BarVisualizer
+;               ControlBar
+;               RoomAudioRenderer]]
+;             [reagent.core :as r]
+;             [reagent.dom :as rdom]
+;             [com.vaani.conference :refer video-conference]
+;             ["react" :as react]
+;             ["react-dom" :as react-dom]))
+;            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+; 
+; has extra input
+; 
+; -- Relevant specs -------
+; 
+; :shadow.build.ns-form/ns-form:
+;   (clojure.spec.alpha/cat
+;    :ns
+;    '#{clojure.core/ns}
+;    :name
+;    clojure.core/simple-symbol?
+;    :docstring
+;    (clojure.spec.alpha/? clojure.core/string?)
+;    :meta
+;    (clojure.spec.alpha/? clojure.core/map?)
+;    :clauses
+;    :shadow.build.ns-form/ns-clauses)
+; 
+; -------------------------
+; Detected 1 error
+; 
+; --------------------------------------------------------------------------------
+;    2 |   (:require ["@chatscope/chat-ui-kit-react" :refer [MainContainer ChatContainer MessageList Message MessageInput ConversationHeader Avatar]]
+;    3 |             ["@livekit/components-react" :refer [LiveKitRoom ParticipantTileGrid Chat useParticipants AudioVisualizer useVoiceAssistant BarVisualizer ControlBar RoomAudioRenderer]]
+;    4 |             [reagent.core :as r]
+;    5 |             [reagent.dom :as rdom]
+; --------------------------------------------------------------------------------
+; 
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (248 files, 1 compiled, 0 warnings, 0.08s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (248 files, 1 compiled, 0 warnings, 0.08s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (248 files, 1 compiled, 0 warnings, 0.10s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (248 files, 1 compiled, 0 warnings, 0.09s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (248 files, 1 compiled, 0 warnings, 0.10s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (248 files, 1 compiled, 0 warnings, 0.09s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (248 files, 1 compiled, 0 warnings, 0.10s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (248 files, 1 compiled, 0 warnings, 0.09s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (248 files, 1 compiled, 0 warnings, 0.09s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (248 files, 1 compiled, 0 warnings, 0.08s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (248 files, 1 compiled, 0 warnings, 0.09s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (248 files, 1 compiled, 0 warnings, 0.10s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (248 files, 1 compiled, 0 warnings, 0.14s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (248 files, 1 compiled, 0 warnings, 0.11s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (248 files, 1 compiled, 0 warnings, 0.12s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (248 files, 1 compiled, 0 warnings, 0.09s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (248 files, 1 compiled, 0 warnings, 0.09s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (248 files, 1 compiled, 0 warnings, 0.12s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (248 files, 1 compiled, 0 warnings, 0.08s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (248 files, 1 compiled, 0 warnings, 0.10s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (248 files, 1 compiled, 0 warnings, 0.11s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (248 files, 1 compiled, 0 warnings, 0.09s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (248 files, 1 compiled, 0 warnings, 0.10s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (247 files, 1 compiled, 0 warnings, 0.10s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (247 files, 1 compiled, 0 warnings, 0.10s)
+; [:vaani] Compiling ...
+; [:vaani] Build failure:
+; The required JS dependency "@emotion/is-prop-valid" is not available, it was required by "node_modules/framer-motion/dist/cjs/index.js".
+; 
+; Dependency Trace:
+; 	com/vaani/app.cljs
+; 	node_modules/framer-motion/dist/cjs/index.js
+; 
+; Searched for npm packages in:
+; 	/home/antash/workspace/vaani-voice/client/node_modules
+; 
+; See: https://shadow-cljs.github.io/docs/UsersGuide.html#npm-install
+; 
+; [:vaani] Compiling ...
+; [:vaani] Build failure:
+; The required JS dependency "@emotion/is-prop-valid" is not available, it was required by "node_modules/framer-motion/dist/cjs/index.js".
+; 
+; Dependency Trace:
+; 	com/vaani/app.cljs
+; 	node_modules/framer-motion/dist/cjs/index.js
+; 
+; Searched for npm packages in:
+; 	/home/antash/workspace/vaani-voice/client/node_modules
+; 
+; See: https://shadow-cljs.github.io/docs/UsersGuide.html#npm-install
+; 
+; [:vaani] Compiling ...
+; [:vaani] Build failure:
+; The required JS dependency "@emotion/is-prop-valid" is not available, it was required by "node_modules/framer-motion/dist/cjs/index.js".
+; 
+; Dependency Trace:
+; 	com/vaani/app.cljs
+; 	node_modules/motion/dist/cjs/react.js
+; 	node_modules/framer-motion/dist/cjs/index.js
+; 
+; Searched for npm packages in:
+; 	/home/antash/workspace/vaani-voice/client/node_modules
+; 
+; See: https://shadow-cljs.github.io/docs/UsersGuide.html#npm-install
+; 
+; [:vaani] Compiling ...
+; [:vaani] Build failure:
+; The required JS dependency "@emotion/is-prop-valid" is not available, it was required by "node_modules/framer-motion/dist/cjs/index.js".
+; 
+; Dependency Trace:
+; 	com/vaani/app.cljs
+; 	node_modules/motion/dist/cjs/react.js
+; 	node_modules/framer-motion/dist/cjs/index.js
+; 
+; Searched for npm packages in:
+; 	/home/antash/workspace/vaani-voice/client/node_modules
+; 
+; See: https://shadow-cljs.github.io/docs/UsersGuide.html#npm-install
+; 
+; [:vaani] Compiling ...
+; [:vaani] Build failure:
+; The required JS dependency "@emotion/is-prop-valid" is not available, it was required by "node_modules/framer-motion/dist/cjs/index.js".
+; 
+; Dependency Trace:
+; 	com/vaani/app.cljs
+; 	node_modules/motion/dist/cjs/react.js
+; 	node_modules/framer-motion/dist/cjs/index.js
+; 
+; Searched for npm packages in:
+; 	/home/antash/workspace/vaani-voice/client/node_modules
+; 
+; See: https://shadow-cljs.github.io/docs/UsersGuide.html#npm-install
+; 
+; [:vaani] Compiling ...
+; [:vaani] Build failure:
+; The required JS dependency "@emotion/is-prop-valid" is not available, it was required by "node_modules/framer-motion/dist/cjs/index.js".
+; 
+; Dependency Trace:
+; 	com/vaani/app.cljs
+; 	node_modules/motion/dist/cjs/react.js
+; 	node_modules/framer-motion/dist/cjs/index.js
+; 
+; Searched for npm packages in:
+; 	/home/antash/workspace/vaani-voice/client/node_modules
+; 
+; See: https://shadow-cljs.github.io/docs/UsersGuide.html#npm-install
+; 
+; [:vaani] Compiling ...
+; [:vaani] Build failure:
+; The required JS dependency "@emotion/is-prop-valid" is not available, it was required by "node_modules/framer-motion/dist/cjs/index.js".
+; 
+; Dependency Trace:
+; 	com/vaani/app.cljs
+; 	node_modules/motion/dist/cjs/react.js
+; 	node_modules/framer-motion/dist/cjs/index.js
+; 
+; Searched for npm packages in:
+; 	/home/antash/workspace/vaani-voice/client/node_modules
+; 
+; See: https://shadow-cljs.github.io/docs/UsersGuide.html#npm-install
+; 
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 10 compiled, 3 warnings, 2.75s)
+; 
+; ------ WARNING #1 - :undeclared-var --------------------------------------------
+;  File: /home/antash/workspace/vaani-voice/client/src/main/com/vaani/app.cljs:158:14
+; --------------------------------------------------------------------------------
+;  155 |           :exit #js {:opacity 0 :top "-10px"}
+;  156 |           :transition #js {:duration 0.4 :ease #js [0.09 1.04 0.245 1.055]}
+;  157 |           :className "flex h-8 absolute left-1/2 -translate-x-1/2 justify-center"}
+;  158 |          [:> VoiceAssistantControlBar {:controls {:leave false}}]
+; --------------------^-----------------------------------------------------------
+;  Use of undeclared Var com.vaani.app/VoiceAssistantControlBar
+; --------------------------------------------------------------------------------
+;  159 |          [:> DisconnectButton
+;  160 |           [:> CloseIcon]]])]]))
+;  161 | 
+;  162 | (defn simple-voice-assistant [{:keys [on-state-change]}]
+; --------------------------------------------------------------------------------
+; 
+; ------ WARNING #2 - :undeclared-var --------------------------------------------
+;  File: /home/antash/workspace/vaani-voice/client/src/main/com/vaani/app.cljs:159:14
+; --------------------------------------------------------------------------------
+;  156 |           :transition #js {:duration 0.4 :ease #js [0.09 1.04 0.245 1.055]}
+;  157 |           :className "flex h-8 absolute left-1/2 -translate-x-1/2 justify-center"}
+;  158 |          [:> VoiceAssistantControlBar {:controls {:leave false}}]
+;  159 |          [:> DisconnectButton
+; --------------------^-----------------------------------------------------------
+;  Use of undeclared Var com.vaani.app/DisconnectButton
+; --------------------------------------------------------------------------------
+;  160 |           [:> CloseIcon]]])]]))
+;  161 | 
+;  162 | (defn simple-voice-assistant [{:keys [on-state-change]}]
+;  163 |   ;; Define atoms once (when the component is created)
+; --------------------------------------------------------------------------------
+; 
+; ------ WARNING #3 - :undeclared-var --------------------------------------------
+;  File: /home/antash/workspace/vaani-voice/client/src/main/com/vaani/app.cljs:160:15
+; --------------------------------------------------------------------------------
+;  157 |           :className "flex h-8 absolute left-1/2 -translate-x-1/2 justify-center"}
+;  158 |          [:> VoiceAssistantControlBar {:controls {:leave false}}]
+;  159 |          [:> DisconnectButton
+;  160 |           [:> CloseIcon]]])]]))
+; ---------------------^----------------------------------------------------------
+;  Use of undeclared Var com.vaani.app/CloseIcon
+; --------------------------------------------------------------------------------
+;  161 | 
+;  162 | (defn simple-voice-assistant [{:keys [on-state-change]}]
+;  163 |   ;; Define atoms once (when the component is created)
+;  164 |   (let [assistant-state (r/atom nil)
+; --------------------------------------------------------------------------------
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.11s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.10s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.09s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.10s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.10s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.10s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.11s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.10s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.12s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.09s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.10s)
+nil
+; 
+; ------ WARNING - :undeclared-var -----------------------------------------------
+;  Resource: <eval>:6:10
+;  Use of undeclared Var com.vaani.app/AnimatePresence
+; --------------------------------------------------------------------------------
+; 
+; 
+; ------ WARNING - :undeclared-var -----------------------------------------------
+;  Resource: <eval>:8:23
+;  Use of undeclared Var com.vaani.app/motion
+; --------------------------------------------------------------------------------
+; 
+; 
+; ------ WARNING - :undeclared-var -----------------------------------------------
+;  Resource: <eval>:18:10
+;  Use of undeclared Var com.vaani.app/AnimatePresence
+; --------------------------------------------------------------------------------
+; 
+; 
+; ------ WARNING - :undeclared-var -----------------------------------------------
+;  Resource: <eval>:21:20
+;  Use of undeclared Var com.vaani.app/motion
+; --------------------------------------------------------------------------------
+; 
+; 
+; ------ WARNING - :undeclared-var -----------------------------------------------
+;  Resource: <eval>:27:14
+;  Use of undeclared Var com.vaani.app/VoiceAssistantControlBar
+; --------------------------------------------------------------------------------
+; 
+; 
+; ------ WARNING - :undeclared-var -----------------------------------------------
+;  Resource: <eval>:28:14
+;  Use of undeclared Var com.vaani.app/DisconnectButton
+; --------------------------------------------------------------------------------
+; 
+; 
+; ------ WARNING - :undeclared-var -----------------------------------------------
+;  Resource: <eval>:29:15
+;  Use of undeclared Var com.vaani.app/CloseIcon
+; --------------------------------------------------------------------------------
+; 
+cljs꞉com.vaani.app꞉> 
+nil
+cljs꞉com.vaani.app꞉> 
+#'com.vaani.app/control-bar
+cljs꞉com.vaani.app꞉> (control-bar {:agentState "connected" :onConnectButtonClicked "connected"})
+[:div {:class "relative h-[100px]"} [:> #object [AnimatePresence] nil] [:> #object [AnimatePresence] [:> #js {"$$typeof" #object [Symbol (react.forward_ref)], :render #object [MotionComponent]} {:initial #js {:opacity 0, :top "10px"}, :animate #js {:opacity 1, :top 0}, :exit #js {:opacity 0, :top "-10px"}, :transition #js {:duration 0.4, :ease #js [0.09 1.04 0.245 1.055]}, :className "flex h-8 absolute left-1/2 -translate-x-1/2 justify-center"} [:> #object [qt] {:controls {:leave false}}] [:> #js {"$$typeof" #object [Symbol (react.forward_ref)], :render #object [Function]} [:> nil]]]]]
+cljs꞉com.vaani.app꞉> 
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.09s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.09s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.11s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.09s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.09s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.08s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.08s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 2 warnings, 0.07s)
+; 
+; ------ WARNING #1 - :undeclared-ns ---------------------------------------------
+;  File: /home/antash/workspace/vaani-voice/client/src/main/com/vaani/app.cljs:220:15
+; --------------------------------------------------------------------------------
+;  217 |          [:> RoomAudioRenderer]
+;  218 |          
+;  219 |          [:> AnimatePresence
+;  220 |           [:> motion/div
+; ---------------------^----------------------------------------------------------
+;  No such namespace: motion, could not locate motion.cljs, motion.cljc, or JavaScript source providing "motion"
+; --------------------------------------------------------------------------------
+;  221 |            {:initial {:opacity 0 :top "10px"}
+;  222 |             :animate  {:opacity 1 :top 0}
+;  223 |             :exit {:opacity 0 :top "-10px"}
+;  224 |             :transition {:duration 0.4 :ease #js [0.09 1.04 0.245 1.055]}
+; --------------------------------------------------------------------------------
+; 
+; ------ WARNING #2 - :undeclared-var --------------------------------------------
+;  File: /home/antash/workspace/vaani-voice/client/src/main/com/vaani/app.cljs:220:15
+; --------------------------------------------------------------------------------
+;  217 |          [:> RoomAudioRenderer]
+;  218 |          
+;  219 |          [:> AnimatePresence
+;  220 |           [:> motion/div
+; ---------------------^----------------------------------------------------------
+;  Use of undeclared Var motion/div
+; --------------------------------------------------------------------------------
+;  221 |            {:initial {:opacity 0 :top "10px"}
+;  222 |             :animate  {:opacity 1 :top 0}
+;  223 |             :exit {:opacity 0 :top "-10px"}
+;  224 |             :transition {:duration 0.4 :ease #js [0.09 1.04 0.245 1.055]}
+; --------------------------------------------------------------------------------
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 2 warnings, 0.11s)
+; 
+; ------ WARNING #1 - :undeclared-ns ---------------------------------------------
+;  File: /home/antash/workspace/vaani-voice/client/src/main/com/vaani/app.cljs:220:15
+; --------------------------------------------------------------------------------
+;  217 |          [:> RoomAudioRenderer]
+;  218 |          
+;  219 |          [:> AnimatePresence
+;  220 |           [:> motion/div
+; ---------------------^----------------------------------------------------------
+;  No such namespace: motion, could not locate motion.cljs, motion.cljc, or JavaScript source providing "motion"
+; --------------------------------------------------------------------------------
+;  221 |            {:initial {:opacity 0 :top "10px"}
+;  222 |             :animate  {:opacity 1 :top 0}
+;  223 |             :exit {:opacity 0 :top "-10px"}
+;  224 |             :transition {:duration 0.4 :ease #js [0.09 1.04 0.245 1.055]}
+; --------------------------------------------------------------------------------
+; 
+; ------ WARNING #2 - :undeclared-var --------------------------------------------
+;  File: /home/antash/workspace/vaani-voice/client/src/main/com/vaani/app.cljs:220:15
+; --------------------------------------------------------------------------------
+;  217 |          [:> RoomAudioRenderer]
+;  218 |          
+;  219 |          [:> AnimatePresence
+;  220 |           [:> motion/div
+; ---------------------^----------------------------------------------------------
+;  Use of undeclared Var motion/div
+; --------------------------------------------------------------------------------
+;  221 |            {:initial {:opacity 0 :top "10px"}
+;  222 |             :animate  {:opacity 1 :top 0}
+;  223 |             :exit {:opacity 0 :top "-10px"}
+;  224 |             :transition {:duration 0.4 :ease #js [0.09 1.04 0.245 1.055]}
+; --------------------------------------------------------------------------------
+; [:vaani] Compiling ...
+; [:vaani] Build failure:
+; package motion had exports, but could not resolve ./div
+; {:package #object[java.io.File 0x4ea460fd "/home/antash/workspace/vaani-voice/client/node_modules/motion"], :require-from nil, :rel-require "./div"}
+; ExceptionInfo: package motion had exports, but could not resolve ./div
+; 	shadow.build.npm/find-resource-in-package (npm.clj:835)
+; 	shadow.build.npm/find-resource-in-package (npm.clj:813)
+; 	shadow.build.npm/find-resource (npm.clj:987)
+; 	shadow.build.npm/find-resource (npm.clj:879)
+; 	shadow.build.resolve/find-npm-resource (resolve.clj:123)
+; 	shadow.build.resolve/find-npm-resource (resolve.clj:94)
+; 	shadow.build.resolve/fn--11443 (resolve.clj:266)
+; 	shadow.build.resolve/fn--11443 (resolve.clj:233)
+; 	clojure.lang.MultiFn.invoke (MultiFn.java:244)
+; 	shadow.build.resolve/find-resource-for-string (resolve.clj:81)
+; 	shadow.build.resolve/find-resource-for-string (resolve.clj:70)
+; 	shadow.build.resolve/resolve-string-require (resolve.clj:466)
+; 	shadow.build.resolve/resolve-string-require (resolve.clj:449)
+; 	shadow.build.resolve/resolve-require (resolve.clj:702)
+; 	shadow.build.resolve/resolve-require (resolve.clj:695)
+; 	shadow.build.resolve/resolve-deps/fn--11394 (resolve.clj:52)
+; 	clojure.lang.PersistentVector.reduce (PersistentVector.java:343)
+; 	clojure.core/reduce (core.clj:6885)
+; 	clojure.core/reduce (core.clj:6868)
+; 	shadow.cljs.util/reduce-> (util.clj:42)
+; 	shadow.cljs.util/reduce-> (util.clj:41)
+; 	shadow.build.resolve/resolve-deps (resolve.clj:50)
+; 	shadow.build.resolve/resolve-deps (resolve.clj:34)
+; 	shadow.build.resolve/resolve-symbol-require (resolve.clj:689)
+; 	shadow.build.resolve/resolve-symbol-require (resolve.clj:649)
+; 	shadow.build.resolve/resolve-require (resolve.clj:699)
+; 	shadow.build.resolve/resolve-require (resolve.clj:695)
+; 	shadow.build.resolve/resolve-entry (resolve.clj:709)
+; 	shadow.build.resolve/resolve-entry (resolve.clj:708)
+; 	clojure.lang.PersistentVector.reduce (PersistentVector.java:343)
+; 	clojure.core/reduce (core.clj:6885)
+; 	clojure.core/reduce (core.clj:6868)
+; 	shadow.cljs.util/reduce-> (util.clj:42)
+; 	shadow.cljs.util/reduce-> (util.clj:41)
+; 	shadow.build.resolve/resolve-entries (resolve.clj:723)
+; 	shadow.build.resolve/resolve-entries (resolve.clj:714)
+; 	shadow.build.modules/resolve-module/fn--14047 (modules.clj:252)
+; 	shadow.build.modules/resolve-module (modules.clj:248)
+; 	shadow.build.modules/resolve-module (modules.clj:238)
+; 	clojure.lang.PersistentVector.reduce (PersistentVector.java:343)
+; 	clojure.core/reduce (core.clj:6885)
+; 	clojure.core/reduce (core.clj:6868)
+; 	shadow.build.modules/resolve-modules (modules.clj:258)
+; 	shadow.build.modules/resolve-modules (modules.clj:257)
+; 	shadow.build.modules/analyze (modules.clj:312)
+; 	shadow.build.modules/analyze (modules.clj:303)
+; 	shadow.build/resolve (build.clj:459)
+; 	shadow.build/resolve (build.clj:453)
+; 	shadow.build/compile (build.clj:509)
+; 	shadow.build/compile (build.clj:493)
+; 	shadow.cljs.devtools.server.worker.impl/build-compile (impl.clj:368)
+; 	shadow.cljs.devtools.server.worker.impl/build-compile (impl.clj:349)
+; 	shadow.cljs.devtools.server.worker.impl/do-resource-update (impl.clj:540)
+; 	shadow.cljs.devtools.server.worker.impl/do-resource-update (impl.clj:495)
+; 	shadow.cljs.devtools.server.util/server-thread/fn--15437/fn--15438/fn--15446 (util.clj:283)
+; 	shadow.cljs.devtools.server.util/server-thread/fn--15437/fn--15438 (util.clj:282)
+; 	shadow.cljs.devtools.server.util/server-thread/fn--15437 (util.clj:255)
+; 	java.lang.Thread.run (Thread.java:1575)
+; 
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (255 files, 1 compiled, 2 warnings, 0.07s)
+; 
+; ------ WARNING #1 - :undeclared-ns ---------------------------------------------
+;  File: /home/antash/workspace/vaani-voice/client/src/main/com/vaani/app.cljs:220:15
+; --------------------------------------------------------------------------------
+;  217 |          [:> RoomAudioRenderer]
+;  218 |          
+;  219 |          [:> AnimatePresence
+;  220 |           [:> motion/div
+; ---------------------^----------------------------------------------------------
+;  No such namespace: motion, could not locate motion.cljs, motion.cljc, or JavaScript source providing "motion"
+; --------------------------------------------------------------------------------
+;  221 |            {:initial {:opacity 0 :top "10px"}
+;  222 |             :animate  {:opacity 1 :top 0}
+;  223 |             :exit {:opacity 0 :top "-10px"}
+;  224 |             :transition {:duration 0.4 :ease #js [0.09 1.04 0.245 1.055]}
+; --------------------------------------------------------------------------------
+; 
+; ------ WARNING #2 - :undeclared-var --------------------------------------------
+;  File: /home/antash/workspace/vaani-voice/client/src/main/com/vaani/app.cljs:220:15
+; --------------------------------------------------------------------------------
+;  217 |          [:> RoomAudioRenderer]
+;  218 |          
+;  219 |          [:> AnimatePresence
+;  220 |           [:> motion/div
+; ---------------------^----------------------------------------------------------
+;  Use of undeclared Var motion/div
+; --------------------------------------------------------------------------------
+;  221 |            {:initial {:opacity 0 :top "10px"}
+;  222 |             :animate  {:opacity 1 :top 0}
+;  223 |             :exit {:opacity 0 :top "-10px"}
+;  224 |             :transition {:duration 0.4 :ease #js [0.09 1.04 0.245 1.055]}
+; --------------------------------------------------------------------------------
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (255 files, 1 compiled, 0 warnings, 0.09s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (255 files, 1 compiled, 0 warnings, 0.08s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.09s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.12s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.11s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.11s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.09s)
+#'com.vaani.app/serverUrl
+cljs꞉com.vaani.app꞉> 
+#'com.vaani.app/access-token
+cljs꞉com.vaani.app꞉> 
+#'com.vaani.app/fetch-and-set-access-token
+cljs꞉com.vaani.app꞉> 
+#'com.vaani.app/get-access-token
+cljs꞉com.vaani.app꞉> @access-token
+
+
+"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoibXkgbmFtZSIsInZpZGVvIjp7InJvb21Kb2luIjp0cnVlLCJyb29tIjoibXktcm9vbSIsImNhblB1Ymxpc2giOnRydWUsImNhblN1YnNjcmliZSI6dHJ1ZSwiY2FuUHVibGlzaERhdGEiOnRydWV9LCJzdWIiOiJpZGVudGl0eSIsImlzcyI6IkFQSWNmc2djN21Wb0tFOSIsIm5iZiI6MTczMzk0Mjk3MCwiZXhwIjoxNzMzOTY0NTcwfQ.vH4AR3i67F9YoK1EIhT_lnEDcYGitxe79m9w_B78QxE"
+cljs꞉com.vaani.app꞉>  @access-token
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.10s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.08s)
+"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoibXkgbmFtZSIsInZpZGVvIjp7InJvb21Kb2luIjp0cnVlLCJyb29tIjoibXktcm9vbSIsImNhblB1Ymxpc2giOnRydWUsImNhblN1YnNjcmliZSI6dHJ1ZSwiY2FuUHVibGlzaERhdGEiOnRydWV9LCJzdWIiOiJpZGVudGl0eSIsImlzcyI6IkFQSWNmc2djN21Wb0tFOSIsIm5iZiI6MTczMzk0Mjk3MCwiZXhwIjoxNzMzOTY0NTcwfQ.vH4AR3i67F9YoK1EIhT_lnEDcYGitxe79m9w_B78QxE"
+cljs꞉com.vaani.app꞉> 
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.09s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.10s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.09s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.10s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 1 warnings, 0.11s)
+; 
+; ------ WARNING #1 - :undeclared-var --------------------------------------------
+;  File: /home/antash/workspace/vaani-voice/client/src/main/com/vaani/app.cljs:160:13
+; --------------------------------------------------------------------------------
+;  157 |         :className "flex h-8 absolute left-1/2 -translate-x-1/2 justify-center"}
+;  158 |        [:> VoiceAssistantControlBar {:controls {:leave false}}]
+;  159 |        [:> DisconnectButton
+;  160 |         [:> CloseIcon]]]]]))
+; -------------------^------------------------------------------------------------
+;  Use of undeclared Var com.vaani.app/CloseIcon
+; --------------------------------------------------------------------------------
+;  161 | 
+;  162 | (defn simple-voice-assistant [{:keys [on-state-change]}]
+;  163 |   ;; Define atoms once (when the component is created)
+;  164 |   (let [assistant-state (r/atom nil)
+; --------------------------------------------------------------------------------
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.09s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.09s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.09s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.09s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.09s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.09s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.09s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.08s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.09s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.10s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.09s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.11s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.11s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.10s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 4 warnings, 0.07s)
+; 
+; ------ WARNING #1 - :undeclared-var --------------------------------------------
+;  File: /home/antash/workspace/vaani-voice/client/src/main/com/vaani/app.cljs:135:4
+; --------------------------------------------------------------------------------
+;  132 | (defonce agent-state (r/atom "disconnected"))
+;  133 | 
+;  134 | (defn on-connect-button-clicked []
+;  135 |   (go
+; ----------^---------------------------------------------------------------------
+;  Use of undeclared Var com.vaani.app/go
+; --------------------------------------------------------------------------------
+;  136 |     (try
+;  137 |       (let [config (default)
+;  138 |             next-public-conn-details-endpoint
+;  139 |             (or (get-in config [:publicRuntimeConfig :NEXT_PUBLIC_CONN_DETAILS_ENDPOINT])
+; --------------------------------------------------------------------------------
+; 
+; ------ WARNING #2 - :undeclared-var --------------------------------------------
+;  File: /home/antash/workspace/vaani-voice/client/src/main/com/vaani/app.cljs:137:21
+; --------------------------------------------------------------------------------
+;  134 | (defn on-connect-button-clicked []
+;  135 |   (go
+;  136 |     (try
+;  137 |       (let [config (default)
+; ---------------------------^----------------------------------------------------
+;  Use of undeclared Var com.vaani.app/default
+; --------------------------------------------------------------------------------
+;  138 |             next-public-conn-details-endpoint
+;  139 |             (or (get-in config [:publicRuntimeConfig :NEXT_PUBLIC_CONN_DETAILS_ENDPOINT])
+;  140 |                 "/api/connection-details")
+;  141 |             url (js/URL.
+; --------------------------------------------------------------------------------
+; 
+; ------ WARNING #3 - :undeclared-var --------------------------------------------
+;  File: /home/antash/workspace/vaani-voice/client/src/main/com/vaani/app.cljs:144:23
+; --------------------------------------------------------------------------------
+;  141 |             url (js/URL.
+;  142 |                  next-public-conn-details-endpoint
+;  143 |                  (.-origin js/window.location))
+;  144 |             response (<p! (js/fetch (.-href url)))
+; -----------------------------^--------------------------------------------------
+;  Use of undeclared Var com.vaani.app/<p!
+; --------------------------------------------------------------------------------
+;  145 |             connection-details-data (<p! (.json response))]
+;  146 | 
+;  147 |         (reset! connection-details connection-details-data)
+;  148 |         (reset! agent-state "connecting"))
+; --------------------------------------------------------------------------------
+; 
+; ------ WARNING #4 - :undeclared-var --------------------------------------------
+;  File: /home/antash/workspace/vaani-voice/client/src/main/com/vaani/app.cljs:145:38
+; --------------------------------------------------------------------------------
+;  142 |                  next-public-conn-details-endpoint
+;  143 |                  (.-origin js/window.location))
+;  144 |             response (<p! (js/fetch (.-href url)))
+;  145 |             connection-details-data (<p! (.json response))]
+; --------------------------------------------^-----------------------------------
+;  Use of undeclared Var com.vaani.app/<p!
+; --------------------------------------------------------------------------------
+;  146 | 
+;  147 |         (reset! connection-details connection-details-data)
+;  148 |         (reset! agent-state "connecting"))
+;  149 | 
+; --------------------------------------------------------------------------------
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.10s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.09s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.09s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.09s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.09s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.09s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.09s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.10s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.11s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.12s)
+#'com.vaani.app/get-access-token
+cljs꞉com.vaani.app꞉> 
+#'com.vaani.app/fetch-and-set-access-token
+cljs꞉com.vaani.app꞉> 
+#'com.vaani.app/access-token
+cljs꞉com.vaani.app꞉> @get-access-token
+#object [Promise [object Promise]]
+cljs꞉com.vaani.app꞉> @get-access-token
+:repl/exception!
+; 
+; REPL Invoke Exception Error: No protocol method IDeref.-deref defined for type object: [object Promise]
+;     at Object.cljs$core$missing_protocol [as missing_protocol] (/home/antash/workspace/vaani-voice/client/.shadow-cljs/builds/node-repl/dev/out/cljs-runtime/cljs/core.cljs:324:3)
+;     at cljs$core$IDeref$_deref$dyn_11907 (/home/antash/workspace/vaani-voice/client/.shadow-cljs/builds/node-repl/dev/out/cljs-runtime/cljs/core.cljs:690:1)
+;     at Object.cljs$core$_deref [as _deref] (/home/antash/workspace/vaani-voice/client/.shadow-cljs/builds/node-repl/dev/out/cljs-runtime/cljs/core.cljs:690:1)
+;     at cljs$core$deref (/home/antash/workspace/vaani-voice/client/.shadow-cljs/builds/node-repl/dev/out/cljs-runtime/cljs/core.cljs:1500:4)
+;     at cljsEval (<eval>:1:25)
+;     at global.SHADOW_NODE_EVAL ([stdin]:105:10)
+;     at Object.shadow$cljs$devtools$client$node$node_eval [as node_eval] (/home/antash/workspace/vaani-voice/client/.shadow-cljs/builds/node-repl/dev/out/cljs-runtime/shadow/cljs/devtools/client/node.cljs:12:
+; 16)
+;     at Object.shadow$cljs$devtools$client$shared$IHostSpecific$do_invoke$arity$3 (/home/antash/workspace/vaani-voice/client/.shadow-cljs/builds/node-repl/dev/out/cljs-runtime/shadow/cljs/devtools/client/node.cljs:101:8)
+;     at Object.shadow$cljs$devtools$client$shared$do_invoke [as do_invoke] (/home/antash/workspace/vaani-voice/client/.shadow-cljs/builds/node-repl/dev/out/cljs-runtime/shadow/cljs/devtools/client/shared.cljs:23:15)
+;     at shadow$cljs$devtools$client$shared$handle_repl_invoke (/home/antash/workspace/vaani-voice/client/.shadow-cljs/builds/node-repl/dev/out/cljs-runtime/shadow/cljs/devtools/client/shared.cljs:122:13) {
+;   meta: null,
+;   cnt: 6,
+;   arr: [
+;     {
+;       ns: null,
+;       name: 'type',
+;       fqn: 'type',
+;       _hash: null,
+;       'cljs$lang$protocol_mask$partition0$': 2153775105,
+;       'cljs$lang$protocol_mask$partition1$': 4096
+;     },
+;     {
+;       ns: 'repl',
+;       name: 'invoke',
+;       fqn: 'repl/invoke',
+;       _hash: null,
+;       'cljs$lang$protocol_mask$partition0$': 2153775105,
+;      
+;  'cljs$lang$protocol_mask$partition1$': 4096
+;     },
+;     {
+;       ns: null,
+;       name: 'name',
+;       fqn: 'name',
+;       _hash: null,
+;       'cljs$lang$protocol_mask$partition0$': 2153775105,
+;       'cljs$lang$protocol_mask$partition1$': 4096
+;     },
+;     '<eval>',
+;     {
+;       ns: null,
+;       name: 'js',
+;       fqn: 'js',
+;       _hash: null,
+;       'cljs$lang$protocol_mask$partition0$': 2153775105,
+;       'cljs$lang$protocol_mask$partition1$': 4096
+;     },
+;     'cljs.core.deref.call(null, com.vaani.app.get_access_token)',
+;     {
+;       ns: null,
+;       name: 'source',
+;       fqn: 'source',
+;       _hash: null,
+;       'cljs$lang$protocol_mask$partition0$': 2153775105,
+;       'cljs$lang$protocol_mask$partition1$': 4096
+;     },
+;     '@get-access-token',
+;     {
+;       ns: null,
+;       name: 'source-map-json',
+;       fqn: 'source-map-json',
+;       _hash: null,
+;       'cljs$lang$protocol_mask$partition0$': 2153775105,
+;       'cljs$lang$protocol_mask$partition1$': 4096
+;     },
+;     '{"version":3,\n' +
+;       ' "file":"<eval>",\n' +
+;       ' "source
+; s":["<eval>"],\n' +
+;       ' "lineCount":1,\n' +
+;       ' "mappings":"2BAACA",\n' +
+;       ' "names":["com.vaani.app/get-access-token"],\n' +
+;       ' "sourcesContent":["@get-access-token"]}\n',
+;     {
+;       ns: null,
+;       name: 'warnings',
+;       fqn: 'warnings',
+;       _hash: null,
+;       'cljs$lang$protocol_mask$partition0$': 2153775105,
+;       'cljs$lang$protocol_mask$partition1$': 4096
+;     },
+;     {
+;       meta: null,
+;       cnt: 0,
+;       shift: 5,
+;       root: [Object],
+;       tail: [],
+;       __hash: null,
+;       'cljs$lang$protocol_mask$partition0$': 167666463,
+;       'cljs$lang$protocol_mask$partition1$': 401412
+;     }
+;   ],
+;   __hash: null,
+;   'cljs$lang$protocol_mask$partition0$': 16647951,
+;   'cljs$lang$protocol_mask$partition1$': 401412
+; }
+; 
+; 
+; Execution error (Error) at (<cljs repl>:1).
+; No protocol method IDeref.-deref defined for type object: [object Promise]
+cljs꞉com.vaani.app꞉> 
+nil
+; 
+; ------ REPL Error while processing ---------------------------------------------
+; (def get-access-token (fetch-and-set-access-token)
+;   (.then (fn [response] 
+;            response)))
+; null
+; Too many arguments to def at line 1 com/vaani/app.cljs
+cljs꞉com.vaani.app꞉> 
+#'com.vaani.app/serverUrl
+cljs꞉com.vaani.app꞉> 
+#'com.vaani.app/access-token
+cljs꞉com.vaani.app꞉> 
+#'com.vaani.app/fetch-and-set-access-token
+cljs꞉com.vaani.app꞉> 
+nil
+; 
+; ------ REPL Error while processing ---------------------------------------------
+; (def get-access-token (fetch-and-set-access-token)
+;   (.then (fn [response] 
+;            response)))
+; null
+; Too many arguments to def at line 1 com/vaani/app.cljs
+cljs꞉com.vaani.app꞉> 
+nil
+; 
+; ------ REPL Error while processing ---------------------------------------------
+; (def get-access-token (fetch-and-set-access-token)
+;   (-> (.then (fn [response]
+;                response))))
+; null
+; Too many arguments to def at line 1 com/vaani/app.cljs
+cljs꞉com.vaani.app꞉> 
+#object [Promise [object Promise]]
+cljs꞉com.vaani.app꞉> 
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.09s)
+#'com.vaani.app/get-access-token
+cljs꞉com.vaani.app꞉> 
+#object [com$vaani$app$get_access_token]
+cljs꞉com.vaani.app꞉> 
+"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoibXkgbmFtZSIsInZpZGVvIjp7InJvb21Kb2luIjp0cnVlLCJyb29tIjoibXktcm9vbSIsImNhblB1Ymxpc2giOnRydWUsImNhblN1YnNjcmliZSI6dHJ1ZSwiY2FuUHVibGlzaERhdGEiOnRydWV9LCJzdWIiOiJpZGVudGl0eSIsImlzcyI6IkFQSWNmc2djN21Wb0tFOSIsIm5iZiI6MTczMzk4MTkyOCwiZXhwIjoxNzM0MDAzNTI4fQ.gyRHuMGiD1wW7qX0dmCvKAjYWmg9WV_J15P_qaj60WM"
+cljs꞉com.vaani.app꞉> 
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.11s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.09s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.09s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.10s)
+#'com.vaani.app/access-token
+cljs꞉com.vaani.app꞉> 
+#'com.vaani.app/fetch-and-set-access-token
+cljs꞉com.vaani.app꞉> 
+#'com.vaani.app/get-access-token
+cljs꞉com.vaani.app꞉> 
+nil
+; 
+; ------ WARNING - :undeclared-var -----------------------------------------------
+;  Resource: <eval>:8:8
+;  Use of undeclared Var com.vaani.app/AudioConference
+; --------------------------------------------------------------------------------
+; 
+cljs꞉com.vaani.app꞉> 
+nil
+; 
+; ------ WARNING - :undeclared-var -----------------------------------------------
+;  Resource: <eval>:8:8
+;  Use of undeclared Var com.vaani.app/AudioConference
+; --------------------------------------------------------------------------------
+; 
+cljs꞉com.vaani.app꞉> 
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.10s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.11s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.11s)
+#'com.vaani.app/room-name
+cljs꞉com.vaani.app꞉> 
+#'com.vaani.app/fetch-and-set-access-token
+cljs꞉com.vaani.app꞉> room-name
+nil
+cljs꞉com.vaani.app꞉> 
+; [:vaani] Compiling ...
+; [:vaani] Build failure:
+; ------ ERROR -------------------------------------------------------------------
+;  File: /home/antash/workspace/vaani-voice/client/src/main/com/vaani/app.cljs:263:3
+; --------------------------------------------------------------------------------
+;  260 | 
+;  261 | (defn livekit-audio-conf []
+;  262 |   
+;  263 |   (let [token])
+; ---------^----------------------------------------------------------------------
+; Syntax error macroexpanding cljs.core/let.
+; Call to cljs.core/let did not conform to spec.
+; -- Spec failed --------------------
+; 
+;   ([token])
+;    ^^^^^^^
+; 
+; should satisfy
+; 
+;   even-number-of-forms?
+; 
+; -- Relevant specs -------
+; 
+; :shadow.cljs.devtools.cljs-specs/bindings:
+;   (clojure.spec.alpha/and
+;    clojure.core/vector?
+;    shadow.cljs.devtools.cljs-specs/even-number-of-forms?
+;    (clojure.spec.alpha/* :shadow.cljs.devtools.cljs-specs/binding))
+; 
+; -------------------------
+; Detected 1 error
+; 
+; --------------------------------------------------------------------------------
+;  264 |   [:div {:data-lk-theme "default"}
+;  265 |    [:> LiveKitRoom {:serverUrl "wss://vaani-voice-sc018bec.livekit.cloud"
+;  266 |                     :token @access-token
+;  267 |                     :connect true
+; --------------------------------------------------------------------------------
+; 
+nil
+; 
+; ------ WARNING - :undeclared-var -----------------------------------------------
+;  Resource: <eval>:9:9
+;  Use of undeclared Var com.vaani.app/AudioConference
+; --------------------------------------------------------------------------------
+; 
+cljs꞉com.vaani.app꞉> room-name
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.10s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.10s)
+nil
+cljs꞉com.vaani.app꞉> 
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.09s)
+; [:vaani] Compiling ...
+; [:vaani] Build failure:
+; ------ ERROR -------------------------------------------------------------------
+;  File: /home/antash/workspace/vaani-voice/client/src/main/com/vaani/app.cljs:263:109
+; --------------------------------------------------------------------------------
+;  260 | (defn livekit-audio-conf []
+;  261 |   
+;  262 |   (fetch-and-set-access-token)
+;  263 |   (let [token (js->clj useToken "wss://vaani-voice-sc018bec.livekit.cloud" room-name {:userInfo {:identity }})])
+; -------------------------------------------------------------------------------------------------------------------^
+; com/vaani/app.cljs [line 263, col 109] The map literal starting with :identity on line 263 column 97 contains 1 form(s). Map literals must contain an even number of forms.
+; 
+; --------------------------------------------------------------------------------
+;  264 |   [:div {:data-lk-theme "default"}
+;  265 |    [:> LiveKitRoom {:serverUrl "wss://vaani-voice-sc018bec.livekit.cloud"
+;  266 |                     :token @access-token
+;  267 |                     :connect true
+; --------------------------------------------------------------------------------
+; 
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.09s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.10s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.08s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.08s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.13s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 1 warnings, 0.06s)
+; 
+; ------ WARNING #1 - :fn-arity --------------------------------------------------
+;  File: /home/antash/workspace/vaani-voice/client/src/main/com/vaani/app.cljs:286:32
+; --------------------------------------------------------------------------------
+;  283 |       [:div {:data-lk-theme "default"}
+;  284 |        ;; Use the LiveKitRoom component
+;  285 |        [:> LiveKitRoom {:serverUrl "wss://vaani-voice-sc018bec.livekit.cloud"
+;  286 |                         :token (:f> useToken
+; --------------------------------------^-----------------------------------------
+;  Wrong number of args (4) passed to :f>
+; --------------------------------------------------------------------------------
+;  287 |                                 js/process.env.NEXT_PUBLIC_LK_TOKEN_ENDPOINT
+;  288 |                                 room-name
+;  289 |                                 (clj->js {:userInfo {:identity user-identity
+;  290 |                                                      :name user-identity}}))
+; --------------------------------------------------------------------------------
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.10s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.11s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.13s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.10s)
+nil
+; 
+; ------ WARNING - :undeclared-var -----------------------------------------------
+;  Resource: <eval>:1:11
+;  Use of undeclared Var com.vaani.app/useToken
+; --------------------------------------------------------------------------------
+; 
+; 
+; ------ WARNING - :undeclared-var -----------------------------------------------
+;  Resource: <eval>:4:73
+;  Use of undeclared Var com.vaani.app/user-identity
+; --------------------------------------------------------------------------------
+; 
+; 
+; ------ WARNING - :undeclared-var -----------------------------------------------
+;  Resource: <eval>:5:69
+;  Use of undeclared Var com.vaani.app/user-identity
+; --------------------------------------------------------------------------------
+; 
+cljs꞉com.vaani.app꞉> 
+nil
+; 
+; ------ WARNING - :undeclared-var -----------------------------------------------
+;  Resource: <eval>:1:22
+;  Use of undeclared Var com.vaani.app/useToken
+; --------------------------------------------------------------------------------
+; 
+; 
+; ------ WARNING - :undeclared-var -----------------------------------------------
+;  Resource: <eval>:4:53
+;  Use of undeclared Var com.vaani.app/user-identity
+; --------------------------------------------------------------------------------
+; 
+; 
+; ------ WARNING - :undeclared-var -----------------------------------------------
+;  Resource: <eval>:5:49
+;  Use of undeclared Var com.vaani.app/user-identity
+; --------------------------------------------------------------------------------
+; 
+cljs꞉com.vaani.app꞉> 
+nil
+cljs꞉com.vaani.app꞉> 
+nil
+; 
+; ------ WARNING - :undeclared-var -----------------------------------------------
+;  Resource: <eval>:1:22
+;  Use of undeclared Var com.vaani.app/useToken
+; --------------------------------------------------------------------------------
+; 
+cljs꞉com.vaani.app꞉> 
+nil
+cljs꞉com.vaani.app꞉> 
+nil
+; 
+; ------ WARNING - :undeclared-var -----------------------------------------------
+;  Resource: <eval>:1:21
+;  Use of undeclared Var com.vaani.app/useToken
+; --------------------------------------------------------------------------------
+; 
+cljs꞉com.vaani.app꞉> 
+nil
+cljs꞉com.vaani.app꞉> 
+nil
+; 
+; ------ WARNING - :undeclared-var -----------------------------------------------
+;  Resource: <eval>:11:9
+;  Use of undeclared Var com.vaani.app/AudioConference
+; --------------------------------------------------------------------------------
+; 
+cljs꞉com.vaani.app꞉> 
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.13s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.10s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.08s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.09s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.09s)
+nil
+; 
+; ------ WARNING - :undeclared-var -----------------------------------------------
+;  Resource: <eval>:1:29
+;  Use of undeclared Var com.vaani.app/useTracks
+; --------------------------------------------------------------------------------
+; 
+; 
+; ------ WARNING - :undeclared-var -----------------------------------------------
+;  Resource: <eval>:1:40
+;  Use of undeclared Var com.vaani.app/Track
+; --------------------------------------------------------------------------------
+; 
+cljs꞉com.vaani.app꞉> 
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.08s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.09s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.08s)
+; [:vaani] Compiling ...
+; [:vaani] Build failure:
+; ------ ERROR -------------------------------------------------------------------
+;  File: /home/antash/workspace/vaani-voice/client/src/main/com/vaani/app.cljs:280:1
+; --------------------------------------------------------------------------------
+;  277 | (def should-connect (r/atom false))
+;  278 | 
+;  279 | 
+;  280 | (def livekit-voice-assistant []
+; -------^------------------------------------------------------------------------
+; null
+; Too many arguments to def at line 280 com/vaani/app.cljs
+; --------------------------------------------------------------------------------
+;  281 |   [:main {:data-lk-theme "default" :style {:height "100%"}}
+;  282 |    [:> LiveKitRoom {:audio true
+;  283 |                     :token @access-token
+;  284 |                     :connect should-connect
+; --------------------------------------------------------------------------------
+; 
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 1 warnings, 0.11s)
+; 
+; ------ WARNING #1 - :undeclared-var --------------------------------------------
+;  File: /home/antash/workspace/vaani-voice/client/src/main/com/vaani/app.cljs:285:17
+; --------------------------------------------------------------------------------
+;  282 |     ]])
+;  283 | 
+;  284 | (defn ^:export run []
+;  285 |   (rdom/render [livekit-audio-conf] (js/document.getElementById "root")))
+; -----------------------^--------------------------------------------------------
+;  Use of undeclared Var com.vaani.app/livekit-audio-conf
+; --------------------------------------------------------------------------------
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.09s)
+nil
+; 
+; ------ WARNING - :undeclared-var -----------------------------------------------
+;  Resource: <eval>:5:30
+;  Use of undeclared Var com.vaani.app/should-connect
+; --------------------------------------------------------------------------------
+; 
+; 
+; ------ WARNING - :undeclared-var -----------------------------------------------
+;  Resource: <eval>:7:52
+;  Use of undeclared Var com.vaani.app/should-connect
+; --------------------------------------------------------------------------------
+; 
+; 
+; ------ WARNING - :undeclared-var -----------------------------------------------
+;  Resource: <eval>:12:11
+;  Use of undeclared Var com.vaani.app/should-connect
+; --------------------------------------------------------------------------------
+; 
+; 
+; ------ WARNING - :undeclared-var -----------------------------------------------
+;  Resource: <eval>:12:113
+;  Use of undeclared Var com.vaani.app/should-connect
+; --------------------------------------------------------------------------------
+; 
+cljs꞉com.vaani.app꞉> 
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.09s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.08s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.09s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.11s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.10s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.11s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.11s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.09s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.09s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.15s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.11s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.10s)
+nil
+; 
+; ------ WARNING - :undeclared-var -----------------------------------------------
+;  Resource: <eval>:1:2
+;  Use of undeclared Var com.vaani.app/should-connect
+; --------------------------------------------------------------------------------
+; 
+cljs꞉com.vaani.app꞉> 
+nil
+; 
+; ------ WARNING - :undeclared-var -----------------------------------------------
+;  Resource: <eval>:1:11
+;  Use of undeclared Var com.vaani.app/should-connect
+; --------------------------------------------------------------------------------
+; 
+cljs꞉com.vaani.app꞉> 
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.09s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.10s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.11s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.09s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.10s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.09s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.12s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.11s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.11s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.17s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.10s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 1 warnings, 0.08s)
+; 
+; ------ WARNING #1 - :infer-warning ---------------------------------------------
+;  File: /home/antash/workspace/vaani-voice/client/src/main/com/vaani/app.cljs:172:3
+; --------------------------------------------------------------------------------
+;  169 | 
+;  170 | (defn simple-voice-assistant []
+;  171 |   ;; Use `r/with-let` to handle React hooks properly within Reagent
+;  172 |   (r/with-let [{:keys [state audioTrack]} (js->clj (useVoiceAssistant) :keywordize-keys true)]
+; ---------^----------------------------------------------------------------------
+;  Cannot infer target type in expression (. with-let22485 -generation)
+; --------------------------------------------------------------------------------
+;  173 |     ;; Render the BarVisualizer component with the required props
+;  174 |     [:> BarVisualizer
+;  175 |      {:state state
+;  176 |       :barCount 7
+; --------------------------------------------------------------------------------
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.10s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.16s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.10s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.11s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.11s)
+; nREPL Connection was closed
+; Jacking in...
+; Connecting using "shadow-cljs" project type.
+; You can make Calva auto-select this.
+;   - See https://calva.io/connect-sequences/
+; 
+
+; Starting Jack-in: (cd /home/antash/workspace/vaani-voice/client; npx shadow-cljs -d cider/cider-nrepl:0.47.1 watch :vaani)
+; Using host:port localhost:40775 ...
+; Hooking up nREPL sessions ...
+; Connected session: clj
+; Evaluating code from settings: 'calva.autoEvaluateCode.onConnect.clj'
+nil
+clj꞉shadow.user꞉> 
+; Creating cljs repl session...
+; Connecting cljs repl: shadow-cljs...
+; [:browser-repl] Configuring build.
+; [:browser-repl] Compiling ...
+; [:browser-repl] Build completed. (118 files, 0 compiled, 0 warnings, 9.73s)
+; Connected session: cljs, repl: :browser-repl
+; TIPS: You can choose which REPL to use (clj or cljs):
+;    *Calva: Toggle REPL connection*
+;    (There is a button in the status bar for this)
+; Evaluating code from settings: 'calva.autoEvaluateCode.onConnect.cljs'
+nil
+cljs꞉user꞉> 
+; Jack-in done.
+cljs꞉user꞉> 
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.14s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.18s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 1 warnings, 0.11s)
+; 
+; ------ WARNING #1 - :undeclared-var --------------------------------------------
+;  File: /home/antash/workspace/vaani-voice/client/src/main/com/vaani/app.cljs:284:11
+; --------------------------------------------------------------------------------
+;  281 |          [:f> simple-voice-assistant] 
+;  282 |          [:button {:className "lk-button" :onClick (fn [] (reset! should-connect true))} "Connect"])]
+;  283 |       [:> VoiceAssistantControlBar]
+;  284 |       [:> AudioRenderer]]]))
+; -----------------^--------------------------------------------------------------
+;  Use of undeclared Var com.vaani.app/AudioRenderer
+; --------------------------------------------------------------------------------
+;  285 | 
+;  286 | (defn ^:export run []
+;  287 |   (rdom/render [livekit-voice-assistant] (js/document.getElementById "root")))
+; --------------------------------------------------------------------------------
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.13s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.14s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.11s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.09s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.15s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.10s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.11s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.09s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.13s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.11s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.13s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.13s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.12s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.10s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.11s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.15s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.10s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.10s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.09s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.09s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.11s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.09s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.09s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.12s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.10s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.11s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.09s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.09s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.10s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.10s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.10s)
+; [:vaani] Compiling ...
+; [:vaani] Build failure:
+; ------ ERROR -------------------------------------------------------------------
+;  File: /home/antash/workspace/vaani-voice/client/src/main/com/vaani/app.cljs:272:86
+; --------------------------------------------------------------------------------
+;  269 |     (println "hello: " @should-connect)
+;  270 |     [:main {:data-lk-theme "default" :style {:height "100%"
+;  271 |                                               :display "grid"
+;  272 |                                               :gridTemplateRows "auto min-content"}}}
+; --------------------------------------------------------------------------------------------^
+; com/vaani/app.cljs [line 272, col 86] Unmatched delimiter }.
+; 
+; --------------------------------------------------------------------------------
+;  273 |      [:> LiveKitRoom {:serverUrl "wss://vaani-voice-sc018bec.livekit.cloud"
+;  274 |                       :token @access-token
+;  275 |                       :audio true
+;  276 |                       :connect @should-connect 
+; --------------------------------------------------------------------------------
+; 
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.10s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.09s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.09s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.09s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.11s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.10s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.11s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.10s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.09s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.11s)
+; [:vaani] Compiling ...
+; [:vaani] Build completed. (256 files, 1 compiled, 0 warnings, 0.10s)
