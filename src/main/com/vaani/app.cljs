@@ -11,11 +11,11 @@
 
 
 ;; Livekit Server and APIKEY
-(def serverUrl "wss://vaani-voice-sc018bec.livekit.cloud")
+(def serverUrl "ws://127.0.0.1:7880")
 (def access-token (r/atom nil))
 (def room-name nil)
 (defn fetch-and-set-access-token []
-  (-> (js/fetch "http://127.0.0.1:8000/getToken" ;; Replace with your actual API URL
+  (-> (js/fetch "http://192.168.1.10:8000/getToken" ;; Replace with your actual API URL
                 (clj->js {:method "GET"}))
       (.then (fn [response]
                (if (.-ok response)
@@ -62,7 +62,7 @@
     (swap! conversation-history #(conj (vec %) message-entry))))
 
 (defn fetch-response [data]
-  (-> (js/fetch "http://127.0.0.1:8000/chat"
+  (-> (js/fetch "http://192.168.1.10:8000/chat"
                 (clj->js {:method "POST"
                           :headers {"Content-Type" "application/json"}
                           :body (js/JSON.stringify 
@@ -141,7 +141,7 @@
      {:state state
       :barCount 7
       :trackRef audioTrack
-      :style {:width "75vw" :height "300px"}}]))
+      :style {:width "75vw" :height "200px"}}]))
 
 (defn livekit-chat-page []
   (let [{:keys [state audioTrack]} (:f> useVoiceAssistant)
@@ -208,43 +208,27 @@
 (def should-connect (r/atom false))
 
 (defn livekit-voice-assistant [] 
-  (fetch-and-set-access-token)
+  (when (nil? @access-token)
+    (fetch-and-set-access-token))
   (println "hello: " @should-connect)
   [:main {:data-lk-theme "default" :style {:height "100%"
                                            :display "grid"
                                            :gridTemplateRows "auto min-content"}}
-   [:> LiveKitRoom {:serverUrl "wss://vaani-voice-sc018bec.livekit.cloud"
+   [:> LiveKitRoom {:serverUrl "ws://127.0.0.1:7880"
                     :token @access-token
                     :audio true
-                    :connect (deref should-connect)
+                    :connect @should-connect
                     :onDisconnected (fn [] (reset! should-connect false))
                     :className "room"
                     :style {:display "grid" :grid-template-rows "auto min-content"}}
-    [:> ConnectionState]
+    
     [:div {:className "inner" :style {:display "flex" :justify-coontent "center" :align-items "center"}}
      (if @should-connect
   
        [:f> simple-voice-assistant]
        [:button {:className "lk-button" :onClick (fn [] (reset! should-connect true))} "Connect"])]
-    [:> VoiceAssistantControlBar]
+    [:> VoiceAssistantControlBar] 
     [:> RoomAudioRenderer]]])
-
-;; (defn audio-call-button []
-;;   [:button {:style {:background-color "#28a745"
-;;                     :border "none"
-;;                     :border-radius "50%"
-;;                     :color "white"
-;;                     :padding "10px"
-;;                     :cursor "pointer"
-;;                     :margin-left "10px"}
-;;             :on-click (fn [] (livekit-voice-assistant))}
-;;    [:svg {:xmlns "http://www.w3.org/2000/svg"
-;;           :width "16" :height "16"
-;;           :fill "currentColor"
-;;           :class "bi bi-telephone-fill"
-;;           :viewBox "0 0 16 16"}
-;;     [:path {:d "M3.654 1.328a.678.678 0 0 1 1.015-.063L6.29 2.593c.329.329.445.812.284 1.254l-.805 2.162a.678.678 0 0 1-.588.44c-.95.112-1.564.748-2.156 1.34-.592.593-1.228 1.207-1.34 2.156a.678.678 0 0 1-.44.588l-2.162.805a1.745 1.745 0 0 0-1.255-.284l-1.327 1.326a1.745 1.745 0 0 0 1.326-.528l3.414-3.414a.678.678 0 0 0-.528-1.326L1.18 6.647A.678.678 0 0 0 .768 6.1C.68 5.94.564 5.457.624 5.015L1.55 3.66c.18-.42.527-.768.947-.947L3.654 1.328zM3.354 1.763c-.2-.2-.488-.295-.768-.18L1.313 2.59c-.226.09-.398.262-.487.487L.182 4.352c-.036.09-.037.188-.002.278l.683 1.707c.102.257.204.486.334.716.13.23.267.458.41.685.143.227.29.455.438.68.148.225.298.448.453.664.155.217.316.433.482.645.166.212.336.421.508.626l-.183.732a.678.678 0 0 0 .717.717l.732-.183c.205.172.414.342.626.508.212.166.428.327.645.482.216.155.439.305.664.453.226.148.454.296.68.438.227.143.455.28.685.41.23.13.459.232.716.334l1.707.683c.09.036.188.035.278-.002l1.265-.44c.226-.09.398-.262.487-.487l.558-1.515c.115-.28.02-.567-.18-.768L3.354 1.763z"}]]])
-
 
 (def show-voice-assistant? (r/atom false))
 (defn audio-call-button []
@@ -265,7 +249,7 @@
                     :top "0"
                     :left "0"
                     :width "100vw"
-                    :height "500px"
+                    :height "100%"
                     :background-color "rgba(0,0,0,0.8)"
                     :z-index "1000"
                     :display "flex"
@@ -274,6 +258,7 @@
             ;; Wrapper for the voice assistant with relative positioning
       [:div {:style {:width "90%"
                      :height "90%"
+                     :box-sizing "border-box"
                      :background-color "white"
                      :box-shadow "0px 4px 10px rgba(0, 0, 0, 0.25)"
                      :border-radius "8px"
@@ -298,7 +283,7 @@
 
 
 (defn new-component []
-  [:div {:style {:position "relative" :height "500px"}}
+  [:div {:style {:padding "5px" :box-sizing "border-box" :width "100%" :height "100%" :display "flex" :overflow "hidden" :flex-direction "column"}}
    [:> MainContainer
     [:> ChatContainer
      [:> ConversationHeader {:style {:background-color "#343a40"}}
